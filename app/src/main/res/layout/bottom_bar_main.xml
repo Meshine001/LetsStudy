@@ -3,7 +3,7 @@
     android:id="@+id/id_main_tab_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
+    android:layout_margin="5dp"
     android:layout_alignParentBottom="true"
     >
     <LinearLayout
@@ -22,15 +22,17 @@
             android:orientation="vertical" >
 
             <ImageButton
+                android:scaleType="fitXY"
                 android:id="@+id/id_btn_tab_bottom_square"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/bottom_tab_size"
+                android:layout_height="@dimen/bottom_tab_size"
                 android:background="#0000"
                 android:clickable="false"
                 android:src="@drawable/selector_tab1"
                 />
 
             <TextView
+                android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="广场" />
@@ -46,9 +48,10 @@
             android:orientation="vertical" >
 
             <ImageButton
+                android:scaleType="fitXY"
                 android:id="@+id/id_btn_tab_bottom_contacts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/bottom_tab_size"
+                android:layout_height="@dimen/bottom_tab_size"
                 android:background="#0000"
                 android:clickable="false"
                 android:src="@drawable/selector_tab2"
@@ -57,6 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:text="通讯录" />
         </LinearLayout>
 
@@ -70,15 +74,17 @@
             android:orientation="vertical" >
 
             <ImageButton
+                android:scaleType="fitXY"
                 android:id="@+id/id_btn_tab_bottom_dates"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/bottom_tab_size"
+                android:layout_height="@dimen/bottom_tab_size"
                 android:background="#0000"
                 android:clickable="false"
                 android:src="@drawable/selector_tab3"
                 />
 
             <TextView
+                android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="自习" />
@@ -94,15 +100,17 @@
             android:orientation="vertical" >
 
             <ImageButton
+                android:scaleType="fitXY"
                 android:id="@+id/id_btn_tab_bottom_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/bottom_tab_size"
+                android:layout_height="@dimen/bottom_tab_size"
                 android:background="#0000"
                 android:clickable="false"
                 android:src="@drawable/selector_tab4"
                 />
 
             <TextView
+                android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我" />

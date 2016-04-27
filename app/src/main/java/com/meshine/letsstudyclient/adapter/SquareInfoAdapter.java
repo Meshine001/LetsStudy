@@ -56,7 +56,7 @@ public class SquareInfoAdapter extends BaseAdapter {
         }
 
 //        Bitmap avatar = Bitmap.createBitmap(60,60);
-        holder.avatar.setImageResource(R.drawable.selector_tab1);
+        holder.avatar.setImageResource(R.drawable.ic_tab_square);
         holder.title.setText(infos.get(position).getTitle());
         holder.details.setText(infos.get(position).getDetails());
         return convertView;
