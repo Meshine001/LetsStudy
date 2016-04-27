@@ -3,36 +3,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:gravity="center_vertical"
+        android:layout_height="60dp"
+        >
+
         <TextView
+            android:layout_marginStart="@dimen/widget_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="西安交通大学"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/white"
+            android:text="西安交通大学" />
+
         <TextView
+            android:layout_marginEnd="@dimen/widget_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="签到"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:text="签到" />
     </RelativeLayout>
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/id_square_info_list"
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/id_square_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000"
-        android:divider="#19000000"
-        android:dividerHeight="4dp"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:smoothScrollbar="true">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:layout_height="match_parent"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrMode="both">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.meshine.letsstudyclient.widget.AdBannerView
+                android:id="@+id/id_square_ad_banner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+            </com.meshine.letsstudyclient.widget.AdBannerView>
+
+            <com.meshine.letsstudyclient.widget.ExpandListView
+                android:id="@+id/id_square_info_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.meshine.letsstudyclient.widget.ExpandListView>
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+
+
 
 </LinearLayout>

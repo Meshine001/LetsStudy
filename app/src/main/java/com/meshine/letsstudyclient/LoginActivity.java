@@ -7,9 +7,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Ming on 2016/4/24.
@@ -25,6 +28,11 @@ public class LoginActivity extends Activity {
     Button btnSignIn;
     @ViewById(R.id.id_login_sign_up)
     TextView btnSignUp;
+
+    @AfterViews
+    void init(){
+
+    }
 
 
     @Click({R.id.id_login_sign_in,R.id.id_login_sign_up,R.id.id_login_wechat,R.id.id_login_qq,R.id.id_login_xin_lang})
