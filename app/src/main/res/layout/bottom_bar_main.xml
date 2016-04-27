@@ -35,7 +35,7 @@
                 android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="广场" />
+                android:text="@string/tab1_string" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/bottom_tab_text_margin"
-                android:text="通讯录" />
+                android:text="@string/tab2_string" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +87,7 @@
                 android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="自习" />
+                android:text="@string/tab3_string" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +113,7 @@
                 android:layout_marginTop="@dimen/bottom_tab_text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我" />
+                android:text="@string/tab4_string" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

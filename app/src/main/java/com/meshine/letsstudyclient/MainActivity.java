@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meshine.letsstudyclient.fragment.TabFourFragment;
@@ -69,6 +70,15 @@ public class MainActivity extends FragmentActivity {
      */
     @ViewById(R.id.id_btn_tab_bottom_me)
     public ImageButton ibMe;
+
+    @ViewById(R.id.id_tab_bottom_square)
+    public LinearLayout llSqaure;
+    @ViewById(R.id.id_tab_bottom_contacts)
+    public LinearLayout llContacts;
+    @ViewById(R.id.id_tab_bottom_dates)
+    public LinearLayout llStudy;
+    @ViewById(R.id.id_tab_bottom_me)
+    public LinearLayout llMe;
 
 
     /**
@@ -152,6 +162,7 @@ public class MainActivity extends FragmentActivity {
         ibContacts.setSelected(false);
         ibDates.setSelected(false);
         ibMe.setSelected(false);
+
     }
 
     /**
@@ -174,19 +185,19 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    @Click({R.id.id_btn_tab_bottom_square,R.id.id_btn_tab_bottom_contacts,R.id.id_btn_tab_bottom_dates,R.id.id_btn_tab_bottom_me})
+    @Click({R.id.id_tab_bottom_square,R.id.id_tab_bottom_contacts,R.id.id_tab_bottom_dates,R.id.id_tab_bottom_me})
     public void onBottomTabClick(View view){
         switch (view.getId()) {
-            case R.id.id_btn_tab_bottom_square:
+            case R.id.id_tab_bottom_square:
                 setTabSelection(1);
                 break;
-            case R.id.id_btn_tab_bottom_contacts:
+            case R.id.id_tab_bottom_contacts:
                 setTabSelection(2);
                 break;
-            case R.id.id_btn_tab_bottom_dates:
+            case R.id.id_tab_bottom_dates:
                 setTabSelection(3);
                 break;
-            case R.id.id_btn_tab_bottom_me:
+            case R.id.id_tab_bottom_me:
                 setTabSelection(4);
                 break;
 

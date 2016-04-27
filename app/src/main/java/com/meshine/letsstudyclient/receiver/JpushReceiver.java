@@ -102,12 +102,14 @@ public class JpushReceiver extends BroadcastReceiver{
 
     //send msg to MainActivity
     private void processCustomMessage(Context context, Bundle bundle) {
-
+            String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+            String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+            String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_logo)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!")
+                        .setContentTitle(title)
+                        .setContentText(message)
                         .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.notification_ring));
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

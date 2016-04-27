@@ -65,8 +65,8 @@
         android:id="@+id/id_square_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrMode="both">
+        ptr:ptrMode="pullFromEnd"
+        ptr:ptrShowIndicator="false">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -98,6 +98,10 @@
                     android:text="最新活动"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
             <com.meshine.letsstudyclient.widget.ExpandListView
                 android:id="@+id/id_square_info_list"
                 android:layout_width="match_parent"

@@ -55,6 +55,9 @@ public class TabOneFragment extends Fragment {
         initInfoListView();
     }
 
+    /**
+     * 初始化广告Banner
+     * */
     void initAd() {
         List<AdBannerView.BannerItem> bannerItems = new ArrayList<>();
         AdBannerView.BannerItem item1 = new AdBannerView.BannerItem("切, 你是否能在天堂看到人来人往", "https://img3.doubanio.com/view/photo/photo/public/p2327027746.jpg");
