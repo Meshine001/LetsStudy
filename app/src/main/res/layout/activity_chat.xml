@@ -41,80 +41,99 @@
 
     </LinearLayout>
 
-
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/id_layout_chat_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="3.5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_record" />
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="3.5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_record" />
+
+            <LinearLayout xmlns:emojicon="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/id_et_chat_message"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="3"
-                    android:background="@color/transparent"
-                    android:gravity="top|left"
-                    android:inputType="textMultiLine" />
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_face" />
+                    <com.rockerhieu.emojicon.EmojiconEditText
+                        android:id="@+id/id_chat_et_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="3"
+                        android:background="@color/transparent"
+                        android:textSize="18sp"
+                        android:gravity="top|left"
+                        android:inputType="textMultiLine"
+                        emojicon:emojiconSize="25sp" />
+
+                    <ImageView
+                        android:id="@+id/id_chat_emoj"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_face" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/id_chat_et_message"
+                    android:background="@color/colorPrimary" />
+
+
             </LinearLayout>
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/id_et_chat_message"
-                android:background="@color/colorPrimary"/>
-
-
+                android:layout_height="35dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="3.5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_chat_plus" />
         </LinearLayout>
 
-        <ImageView
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/id_chat_emoj_icons"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="3.5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_chat_plus" />
+            android:layout_height="220dp"
+        />
     </LinearLayout>
+
+
     <ListView
 
-        android:divider="@null"
         android:id="@+id/id_chat_msg_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/id_layout_chat_tool_bar"
         android:layout_below="@id/id_layout_chat_top_bar"
-        android:background="@color/chat_background_color">
+        android:background="@color/chat_background_color"
+        android:divider="@null"
+        android:listSelector="@color/transparent">
 
     </ListView>
 
