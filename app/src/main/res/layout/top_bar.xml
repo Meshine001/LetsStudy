@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_layout_top_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/app_style">
+
+        <ImageView
+            android:id="@+id/id_topbar_back"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/id_topbar_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/id_topbar_back"
+            android:text="1/2"
+            android:textColor="@color/topbar_text_color"
+            android:textSize="@dimen/topbar_title_text_size"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/id_topbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Title"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="@dimen/topbar_title_text_size" />
+
+        <ImageView
+            android:id="@+id/id_topbar_right_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_plus" />
+
+    </RelativeLayout>
+
+</LinearLayout>

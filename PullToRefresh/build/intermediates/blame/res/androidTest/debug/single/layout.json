@@ -1,26 +1,10 @@
 [
     {
-        "merged": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/PullToRefresh/build/intermediates/res/merged/androidTest/debug/layout/pull_to_refresh_header_horizontal.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/PullToRefresh/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_horizontal.xml"
     },
     {
-        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
-        "merged": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
-        "merged": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
-    },
-    {
-        "merged": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "E:\\Users\\meshine\\Documents\\LetsStudy\\LetsStudyClient\\E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
-    },
-    {
-        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/PullToRefresh/build/intermediates/res/merged/androidTest/debug/layout/pull_to_refresh_header_vertical.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/PullToRefresh/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_vertical.xml"
     }
 ]
