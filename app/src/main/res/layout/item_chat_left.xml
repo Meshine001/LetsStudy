@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <com.meshine.letsstudyclient.widget.CircleImageView
-        android:id="@+id/id_item_chat_left_avatar"
-        android:layout_width="@dimen/chat_avatar_size"
-        android:layout_height="@dimen/chat_avatar_size"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_test_avater" />
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/chat_item_receive_layout">
     <TextView
-        android:id="@+id/id_item_chat_left_text"
+        android:id="@+id/id_chat_send_time_txt"
+        style="@style/chat_text_date_style"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <com.meshine.letsstudyclient.widget.CircleImageView
+            android:id="@+id/id_item_chat_left_avatar"
+            android:layout_width="@dimen/chat_avatar_size"
+            android:layout_height="@dimen/chat_avatar_size"
+            android:layout_marginStart="@dimen/chat_row_margin"
+            android:layout_marginTop="@dimen/chat_row_margin"
+            android:layout_marginBottom="@dimen/chat_row_margin"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_test_avater" />
+        <TextView
+            android:id="@+id/id_chat_display_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/chat_display_name_style"
+            android:layout_toRightOf="@id/id_item_chat_left_avatar"
+            android:text="亚茹"
+            />
+        <com.rockerhieu.emojicon.EmojiconTextView
+            android:id="@+id/id_chat_left_msg_content"
+            style="@style/msg_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/id_chat_display_name_tv"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/id_item_chat_left_avatar"
+            android:background="@drawable/ic_chat_left_bg"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:textColor="#363333"
+            android:text="Hi"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp"
-        android:layout_toRightOf="@id/id_item_chat_left_avatar"
-        android:text="Hi" />
-</RelativeLayout>
+        android:layout_toEndOf="@id/id_item_chat_left_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_margin="5dp"
+            android:id="@+id/ic_chat_recorder_left_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:scaleX="1"
+            android:scaleY="0.8"
+            android:background="@drawable/ic_chat_left_bg">
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical|start"
+                android:id="@+id/id_chat_recorder_left_anim"
+                android:background="@drawable/adj_left">
+            </View>
+
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/id_chat_recorder_left_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/ic_chat_recorder_left_length"
+            android:layout_marginStart="3dp"
+            android:text="12''"
+            android:textColor="#777777"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

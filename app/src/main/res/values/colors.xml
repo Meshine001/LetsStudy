@@ -9,6 +9,10 @@
 
     <color name="chat_background_color">#ecf0f1</color>
 
+    <color name="chat_recorder_text_color">#727272</color>
+
+    <color name="chat_text_color">#373334</color>
+
 
     <color name="transparent">#00000000</color><!--透明色 -->
     <color name="white">#FFFFFF</color><!--白色 -->

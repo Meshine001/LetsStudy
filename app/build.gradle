@@ -4,11 +4,11 @@ def AAVersion = '4.0.0'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.meshine.letsstudyclient"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

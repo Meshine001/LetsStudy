@@ -50,7 +50,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom"
-                android:layout_weight="3.5"
+                android:layout_weight="3"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_record" />
 
@@ -77,16 +77,17 @@
                     android:orientation="horizontal">
 
                     <com.rockerhieu.emojicon.EmojiconEditText
+                        android:padding="2dp"
                         android:id="@+id/id_chat_et_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
                         android:layout_weight="3"
-                        android:background="@color/transparent"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:gravity="top|left"
+                        android:paddingBottom="10dp"
                         android:inputType="textMultiLine"
-                        emojicon:emojiconSize="25sp" />
+                        android:background="@android:color/transparent"
+                        emojicon:emojiconSize="20sp" />
 
                     <ImageView
                         android:id="@+id/id_chat_emoj"
@@ -97,21 +98,30 @@
                         android:src="@drawable/ic_face" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/id_chat_et_message"
-                    android:background="@color/colorPrimary" />
+
 
 
             </LinearLayout>
 
             <ImageView
+               android:id="@+id/id_chat_extend_plus"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                android:layout_weight="3.5"
+                android:layout_weight="3"
                 android:scaleType="fitCenter"
+                android:src="@drawable/ic_chat_plus" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/id_chat_send"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:background="@drawable/btn_chat_sendl"
+                android:text="发送"
+                android:textColor="@color/colorPrimary"
                 android:src="@drawable/ic_chat_plus" />
         </LinearLayout>
 
@@ -119,8 +129,28 @@
             android:visibility="gone"
             android:id="@+id/id_chat_emoj_icons"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="@dimen/chat_emoj_icons_height"
         />
+
+        <FrameLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.meshine.letsstudyclient.widget.AudioRecorderButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_chat_recorder"
+                android:layout_marginLeft="@dimen/chat_recorder_marginLeft"
+                android:layout_marginRight="@dimen/chat_recorder_marginRight"
+                android:layout_marginTop="@dimen/chat_recorder_marginTop"
+                android:layout_marginBottom="@dimen/chat_recorder_marginBottom"
+                android:gravity="center"
+                android:padding="@dimen/chat_recorder_padding"
+                android:text="@string/str_chat_recorder_normal"
+                android:minHeight="0dp"
+                android:textColor="@color/chat_recorder_text_color"
+                android:background="@drawable/btn_recorder_normal"/>
+        </FrameLayout>
     </LinearLayout>
 
 

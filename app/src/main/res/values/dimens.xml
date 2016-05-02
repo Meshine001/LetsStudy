@@ -12,7 +12,19 @@
     <dimen name="topbar_title_text_size">20sp</dimen>
     <dimen name="text_size_1">18sp</dimen>
 
-    <dimen name="chat_avatar_size">60dp</dimen>
+    <dimen name="chat_avatar_size">50dp</dimen>
 
+    <!--Chat Recorder -->
+    <dimen name="chat_recorder_marginLeft">50dp</dimen>
+    <dimen name="chat_recorder_marginRight">50dp</dimen>
+    <dimen name="chat_recorder_marginTop">6dp</dimen>
+    <dimen name="chat_recorder_marginBottom">7dp</dimen>
+    <dimen name="chat_recorder_padding">5dp</dimen>
+
+    <dimen name="chat_pop_height">35dp</dimen>
+    <dimen name="chat_row_height">60dp</dimen>
+    <dimen name="chat_row_margin">5dp</dimen>
+
+    <dimen name="chat_emoj_icons_height">230dp</dimen>
 
 </resources>

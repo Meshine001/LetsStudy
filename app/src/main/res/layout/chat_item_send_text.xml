@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/chat_item_send_layout">
+    <TextView
+        android:id="@+id/id_chat_send_time_txt"
+        style="@style/chat_text_date_style"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+        <com.rockerhieu.emojicon.EmojiconTextView
+            android:id="@+id/id_chat_msg_content"
+            style="@style/msg_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/ic_chat_right_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:text="Hello,World!!"
+            />
+        <com.meshine.letsstudyclient.widget.CircleImageView
+            android:id="@+id/id_item_chat_avatar"
+            android:layout_width="@dimen/chat_avatar_size"
+            android:layout_height="@dimen/chat_avatar_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/chat_row_margin"
+            android:layout_marginBottom="@dimen/chat_row_margin"
+            android:layout_marginEnd="@dimen/chat_row_margin"
+            android:src="@drawable/ic_test_avater" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_margin="5dp"
+        android:gravity="end"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/id_item_chat_right_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/ic_chat_recorder_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_chat_right_bg">
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/id_chat_recorder_anim"
+                android:layout_gravity="center_vertical|right"
+                android:background="@drawable/adj_right">
+            </View>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/id_chat_recorder_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/ic_chat_recorder_length"
+            android:layout_marginEnd="3dp"
+            android:text="12''"
+            android:textColor="#777777"
+            />
+    </RelativeLayout>
+
+
+
+</LinearLayout>
