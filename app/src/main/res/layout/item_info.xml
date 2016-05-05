@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        <ImageView
-            android:scaleType="fitXY"
-            android:id="@+id/id_item_info_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_weight="1"
-            android:src="@drawable/selector_tab1" />
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal" >
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/id_item_info_avatar"
+        android:layout_width="@dimen/item_info_height"
+        android:layout_height="@dimen/item_info_height"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/selector_tab1" />
+    <LinearLayout
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_info_height"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/id_item_info_title"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/id_item_info_avatar"
             android:text="标题"
-            android:textSize="20sp" />
+            android:textSize="13sp" />
 
           <TextView
+              android:layout_marginTop="3dp"
               android:id="@+id/id_item_info_details"
-              android:layout_marginTop="15dp"
-              android:layout_marginLeft="10dp"
-              android:layout_toRightOf="@id/id_item_info_avatar"
-              android:layout_below="@id/id_item_info_title"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:textSize="11sp"
               android:text="内容..."/>
-    </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_info_height"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/id_item_info_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="2016-03-22"/>
+
+    </LinearLayout>
+
+
+
+
 
 
 </LinearLayout>

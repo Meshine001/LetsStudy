@@ -17,19 +17,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meshine.letsstudyclient.MainActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.tools.FileUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.UrIUtil;
 import com.meshine.letsstudyclient.widget.CircleImageView;
 import com.meshine.letsstudyclient.widget.PickAvatarDialog;
-import com.soundcloud.android.crop.Crop;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.File;

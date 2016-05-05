@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/id_login_center"
+        android:layout_margin="10dp"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:id="@+id/id_login_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_sign_in"
             android:text="登入"/>
         <TextView
             android:layout_marginTop="10dp"

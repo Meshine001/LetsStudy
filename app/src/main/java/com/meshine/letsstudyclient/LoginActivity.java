@@ -11,11 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
+import com.meshine.letsstudyclient.tools.MyPrefs_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
@@ -25,7 +27,7 @@ import cn.jpush.im.api.BasicCallback;
  * Created by Ming on 2016/4/24.
  */
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
 
     @ViewById(R.id.id_login_username)
@@ -37,11 +39,14 @@ public class LoginActivity extends Activity {
     @ViewById(R.id.id_login_sign_up)
     TextView btnSignUp;
 
-    private Context mContext;
+    @Pref
+    MyPrefs_ myPrefs;
 
     @AfterViews
     void init(){
-        mContext = this;
+        if (myPrefs.username().exists()){
+            goMain();
+        }
     }
 
 
@@ -49,7 +54,9 @@ public class LoginActivity extends Activity {
     void onClick(View view){
         switch (view.getId()){
             case R.id.id_login_sign_in:
-                Toast.makeText(this,"Sign in!",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this,"Sign in!",Toast.LENGTH_SHORT).show();
+                setProgressDialogTile("提示").setMessage("努力登入中...");
+                progressDialogShow();
                 login();
                 break;
             case R.id.id_login_sign_up:
@@ -70,20 +77,37 @@ public class LoginActivity extends Activity {
     }
 
     void login(){
-        String username = "danami";
-        String password = "shyboy123";
+
+        final String username = etUserName.getText().toString().trim();
+        final String password = etPassword.getText().toString().trim();
+
         JMessageClient.login(username, password, new BasicCallback() {
             @Override
             public void gotResult(int status, String s) {
                 if (status == 0) {
+                    progressDialogDismiss();
                     Log.i(TAG,"登录成功");
-                    Intent intent = new Intent(LoginActivity.this,MainActivity_.class);
-                    startActivity(intent);
+
+                    myPrefs.edit()
+                            .username()
+                            .put(username)
+                            .password()
+                            .put(password)
+                            .apply();
+
+                    goMain();
+
                 } else {
+                    progressDialogDismiss();
                     Log.i("LoginController", "status = " + status);
-                    HandleResponseCode.onHandle(mContext, status, false);
+                    HandleResponseCode.onHandle(getApplicationContext(), status, false);
                 }
             }
         });
+    }
+
+    void goMain(){
+        Intent intent = new Intent(LoginActivity.this,MainActivity_.class);
+        startActivity(intent);
     }
 }
