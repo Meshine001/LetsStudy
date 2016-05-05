@@ -2,10 +2,12 @@ package com.meshine.letsstudyclient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +33,12 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
+
 /**
  * Created by Meshine on 16/4/28.
  */
@@ -55,9 +63,9 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     FrameLayout emojIcons;
 
 
-    List<ChatMessage> messages = new ArrayList<>();
+    List<Message> messages = new ArrayList<>();
     ChatMessageAdapter messageAdapter;
-
+    Conversation mConv;
 
     @ViewById(R.id.id_chat_msg_panel)
     ListView msgPanel;
@@ -66,25 +74,17 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     void init() {
         initMsgPanel();
         initEmoj();
+        initConversation();
+    }
+
+    void initConversation(){
+        if (mConv == null)
+        mConv = JMessageClient.getSingleConversation("Meshine");
     }
 
 
     void initMsgPanel() {
-
-//        messages.add(new ChatMessage("d", "w", "Hi~~~", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Hi~~~", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Hi~~~", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Hi~~~your sister!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 1));
-//        messages.add(new ChatMessage("d", "w", "Oh.贱人!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Oh.贱人!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "不要这样说人家嘛~~", ChatMessageAdapter.CHAT_TYPE_TEXT, 1));
-//        messages.add(new ChatMessage("d", "w", "Oh.贱人!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Oh.贱人!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "Oh.贱人!!", ChatMessageAdapter.CHAT_TYPE_TEXT, 0));
-//        messages.add(new ChatMessage("d", "w", "我要哭了~~", ChatMessageAdapter.CHAT_TYPE_TEXT, 1));
-
-
-        messageAdapter = new ChatMessageAdapter(messages, ChatActivity.this);
+        messageAdapter = new ChatMessageAdapter(messages,ChatActivity.this);
         msgPanel.setAdapter(messageAdapter);
         if (messages.size()>1)
         msgPanel.setSelection(messages.size()-1);
@@ -147,16 +147,27 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     }
 
     void sendMessage(){
-        //TODO SendToServer();
-        ChatMessage sendMsg = new ChatMessage("","",etMessage.getText().toString(),ChatMessageAdapter.CHAT_TYPE_TEXT,1);
+        initConversation();
+        Message sendMsg;
+        if (mConv == null){
+            sendMsg = JMessageClient.createSingleTextMessage("Meshine",etMessage.getText().toString());
+        }else {
+            String msgContent = etMessage.getText().toString();
+            etMessage.setText("");
+            TextContent content = new TextContent(msgContent);
+             sendMsg = mConv.createSendMessage(content);
+
+        }
+
         messages.add(sendMsg);
-        ChatMessage recMsg = new ChatMessage("","","好！！！",ChatMessageAdapter.CHAT_TYPE_TEXT,0);
-        messages.add(recMsg);
+
         messageAdapter.notifyDataSetChanged();
         msgPanel.setSelection(messages.size()-1);
 
-        etMessage.setText("");
     }
+
+
+
     void emojSwitch(){
         switch (emojIcons.getVisibility()){
             case  View.INVISIBLE:
@@ -188,6 +199,8 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
         }
 
     }
+
+
 
     void setEmojiconFragment(boolean flag) {
 

@@ -39,7 +39,7 @@
         android:layout_margin="5dp"
         android:gravity="end"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/id_item_chat_right_avatar"
+        android:layout_toLeftOf="@id/id_item_chat_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <FrameLayout

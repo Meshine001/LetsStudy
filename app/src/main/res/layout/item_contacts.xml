@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <com.meshine.letsstudyclient.widget.CircleImageView
+        android:id="@+id/id_contacts_avatar"
+        android:layout_margin="10dp"
+        android:layout_width="@dimen/chat_avatar_size"
+        android:layout_height="@dimen/chat_avatar_size"
+        android:src="@drawable/ic_test_avater"/>
+    <TextView
+        android:id="@+id/id_contacts_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="小明"/>
+
+</LinearLayout>

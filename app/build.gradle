@@ -41,6 +41,7 @@ dependencies {
     compile project(':PullToRefresh')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.rockerhieu.emojicon:library:1.2'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
 }
 
 apt {

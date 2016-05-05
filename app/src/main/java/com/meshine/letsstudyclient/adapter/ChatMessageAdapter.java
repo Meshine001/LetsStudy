@@ -1,6 +1,8 @@
 package com.meshine.letsstudyclient.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.bean.ChatMessage;
+import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.TimeFormat;
 import com.meshine.letsstudyclient.widget.CircleImageView;
 import com.rockerhieu.emojicon.EmojiconTextView;
@@ -19,6 +22,8 @@ import com.rockerhieu.emojicon.EmojiconTextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
+import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -93,14 +98,16 @@ public class ChatMessageAdapter extends BaseAdapter{
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Message msg = messages.get(position);
-        UserInfo userInfo = msg.getFromUser();
-        ViewHolder holder = null;
+        final Message msg = messages.get(position);
+        final UserInfo userInfo = msg.getFromUser();
+        final ViewHolder holder;
 
         if (convertView == null) {
+            holder = new ViewHolder();
             convertView = createViewByType(msg, position);
             switch (msg.getContentType()) {
                 case text:
@@ -154,7 +161,70 @@ public class ChatMessageAdapter extends BaseAdapter{
             }
         }
 
+        //显示头像
+        if (holder.avatar != null){
+            if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())){
+                userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                    @Override
+                    public void gotResult(int status, String desc, Bitmap bitmap) {
+                        if (status == 0) {
+                            holder.avatar.setImageBitmap(bitmap);
+                        } else {
+                            holder.avatar.setImageResource(R.drawable.ic_test_avater);
+                            HandleResponseCode.onHandle(context, status, false);
+                        }
+                    }
+                });
+            }else {
+                holder.avatar.setImageResource(R.drawable.ic_test_avater);
+            }
+        }
+
+        // 点击头像跳转到个人信息界面
+        holder.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        switch (msg.getContentType()) {
+            case text:
+                handleTextMsg(msg, holder, position);
+                break;
+            case image:
+                //handleImgMsg(msg, holder, position);
+                break;
+            case voice:
+//                handleVoiceMsg(msg, holder, position);
+                break;
+            case location:
+//                handleLocationMsg(msg, holder, position);
+                break;
+            case eventNotification:
+//                handleGroupChangeMsg(msg, holder, msgTime);
+                break;
+            default:
+               // handleCustomMsg(msg, holder);
+        }
+
         return convertView;
+
+    }
+
+    /**
+     * 处理文字消息
+     * @param msg
+     * @param holder
+     * @param position
+     */
+    private void handleTextMsg(Message msg, ViewHolder holder, int position) {
+        final String content = ((TextContent) msg.getContent()).getText();
+        holder.txtContent.setText(content);
+        holder.txtContent.setTag(position);
+        //长按文本跳出Dialog
+//        holder.txtContent.setOnLongClickListener();
+
 
     }
 
@@ -208,7 +278,7 @@ public class ChatMessageAdapter extends BaseAdapter{
         }
     }
 
-    static class ViewHolder {
+    public static class ViewHolder {
         CircleImageView avatar;
         TextView displayName;
         EmojiconTextView txtContent;
