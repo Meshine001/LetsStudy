@@ -185,4 +185,15 @@
     <string name="sdk_87x_871506">imei无效</string>
     <string name="sdk_87x_871201">请求超时，请检查您的网络</string>
 
+
+    <string name="account_str">账号</string>
+    <string name="sex_str">性别</string>
+    <string name="location_str">地区</string>
+    <string name="quote_str">个性签名</string>
+    <string name="settings_str">设置</string>
+    <string name="modify_password_str">修改密码</string>
+    <string name="about_str">关于</string>
+    <string name="feedback_str">意见反馈</string>
+    <string name="exit_str">安全退出</string>
+
 </resources>

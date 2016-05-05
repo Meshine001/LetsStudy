@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.meshine.letsstudyclient.MainActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.tools.FileUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
+import com.meshine.letsstudyclient.tools.UrIUtil;
 import com.meshine.letsstudyclient.widget.CircleImageView;
 import com.meshine.letsstudyclient.widget.PickAvatarDialog;
 import com.soundcloud.android.crop.Crop;
@@ -35,6 +37,7 @@ import java.io.File;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by Ming on 2016/4/24.
@@ -45,7 +48,8 @@ public class TabFourFragment extends Fragment {
 
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-    private static final int PHOTO_REQUEST_CUT = 3;// 结果
+    private static final int PHOTO_REQUEST_GALLERY_KITKAT = 3;// 从相册中选择,sdk >= 4.4
+    private static final int PHOTO_REQUEST_CUT = 4;// 结果
 
     @ViewById(R.id.id_me_avatar)
     CircleImageView ivAvatar;
@@ -53,7 +57,8 @@ public class TabFourFragment extends Fragment {
     TextView tvNick;
 
     PickAvatarDialog pickAvatarDialog;
-    File tempFile;
+    File  captureFile = new File(FileUtil.getNewPictureName(getContext()));
+    File uploadAvatar;
 
 
     UserInfo userInfo;
@@ -86,15 +91,25 @@ public class TabFourFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
-                startPhotoZoom(Uri.fromFile(tempFile));
+                startPhotoZoom(Uri.fromFile(captureFile));
                 break;
             case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
                 // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                 if (data != null) {
-                    System.out.println("11================");
-                    startPhotoZoom(data.getData());
+                    Log.i(TAG,"获得图片:"+data.toString());
+                    String path = UrIUtil.selectImage(getContext(),data);
+                    startPhotoZoom(Uri.fromFile(new File(path)));
                 } else {
-                    System.out.println("================");
+                    Log.i(TAG,"获取数据为null");
+                }
+                break;
+            case PHOTO_REQUEST_GALLERY_KITKAT:// 当选择从本地获取图片时
+                // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
+                if (data != null) {
+                    String path = UrIUtil.getPath(getContext(),data.getData());
+                    startPhotoZoom(Uri.fromFile(new File(path)));
+                } else {
+                    Log.i(TAG,"获取数据为null");
                 }
                 break;
             case PHOTO_REQUEST_CUT:// 返回的结果
@@ -125,19 +140,42 @@ public class TabFourFragment extends Fragment {
         Log.i(TAG,"裁剪完成 ");
         // 拿到剪切数据
         Bitmap bmap = data.getParcelableExtra("data");
-        ivAvatar.setImageBitmap(bmap);
+
+        uploadAvatar = FileUtil.saveBitmapToFile(getContext(),bmap);
+
+        if (uploadAvatar!=null){
+            uploadAvatar();
+        }
 
     }
 
-    String avatarUri;
+    void uploadAvatar(){
+        JMessageClient.updateUserAvatar(uploadAvatar, new BasicCallback() {
+            @Override
+            public void gotResult(int status, String s) {
+                if (status==0){
+                    ivAvatar.setImageURI(Uri.fromFile(uploadAvatar));
+                }else {
+                    HandleResponseCode.onHandle(getContext(),status,true);
+                }
+            }
+        });
+    }
+
 
     void initDialogs(){
+
         pickAvatarDialog = new PickAvatarDialog(getContext(), new PickAvatarDialog.OnPickAvatarDialogListener() {
             @Override
             public void pickFromAlbum() {
-                Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);//ACTION_OPEN_DOCUMENT
+                getAlbum.addCategory(Intent.CATEGORY_OPENABLE);
                 getAlbum.setType("image/*");
-                startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                    startActivityForResult(getAlbum,PHOTO_REQUEST_GALLERY_KITKAT);
+                }else {
+                    startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
+                }
             }
 
             @Override
@@ -146,7 +184,7 @@ public class TabFourFragment extends Fragment {
                         MediaStore.ACTION_IMAGE_CAPTURE);
                 // 指定调用相机拍照后照片的储存路径
                 cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(tempFile));
+                        Uri.fromFile(captureFile));
                 startActivityForResult(cameraintent,
                         PHOTO_REQUEST_TAKEPHOTO);
             }

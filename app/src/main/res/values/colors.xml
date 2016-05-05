@@ -13,6 +13,9 @@
 
     <color name="chat_text_color">#373334</color>
 
+    <color name="item_click_bg_color">#dddddd</color>
+    <color name="me_split_line_color">#d0d0d0</color>
+
 
     <color name="transparent">#00000000</color><!--透明色 -->
     <color name="white">#FFFFFF</color><!--白色 -->
