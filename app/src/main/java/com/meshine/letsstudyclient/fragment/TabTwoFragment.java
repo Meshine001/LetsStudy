@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
+import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -37,13 +38,8 @@ public class TabTwoFragment extends Fragment {
     List<UserInfo> userInfos;
     ContactsAdapter contactsAdapter;
 
-    //TopBar
-    @ViewById(R.id.id_topbar_back)
-    ImageView topbarBack;
-    @ViewById(R.id.id_topbar_title)
-    TextView topbarTitle;
-    @ViewById(R.id.id_topbar_right_iv)
-    ImageView topbarRightIV;
+    @ViewById(R.id.id_contacts_topbar)
+    TopBarView topbar;
 
     @Nullable
     @Override
@@ -59,9 +55,7 @@ public class TabTwoFragment extends Fragment {
     }
 
     void initTopbar(){
-        topbarBack.setVisibility(View.GONE);
-        topbarTitle.setText("通讯录");
-        //topbarRightIV.setVisibility(View.GONE);
+
     }
 
     void initListView(){

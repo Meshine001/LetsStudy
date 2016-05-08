@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <com.meshine.letsstudyclient.widget.CircleImageView
+                android:id="@+id/id_item_event_avatar"
+                android:layout_width="@dimen/hot_events_iv_size"
+                android:layout_height="@dimen/hot_events_iv_size"
+                android:src="@mipmap/ic_launcher"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/id_item_event_nick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Meshine"
+                        android:textSize="@dimen/hot_events_text_nick_size"
+                        android:textColor="@color/colorPrimary"/>
+                    <TextView
+                        android:id="@+id/id_item_event_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="周日上午图书馆"
+                        android:textSize="@dimen/hot_events_text_title_size" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/id_item_event_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="人数：4人"
+                            android:textSize="@dimen/hot_events_text_info_size"/>
+                        <TextView
+                            android:id="@+id/id_item_event_limit"
+                            android:layout_marginStart="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="限制：女生"
+                            android:textSize="@dimen/hot_events_text_info_size"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/id_item_event_date"
+                    android:layout_margin="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hot_events_text_date_size"
+                    android:text="2017-03-04"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/id_item_event_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="要漂亮的女生，要非常漂亮的女生，记住了噢。要！！！漂亮的女生"
+            android:background="@drawable/ic_chat_left_bg"/>
+    </LinearLayout>
+
+
+
+
+
+

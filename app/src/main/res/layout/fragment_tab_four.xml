@@ -70,115 +70,35 @@
             android:background="@color/white"
             android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/id_me_account_line"
+                android:id="@+id/id_me_info_line"
                 style="@style/MeItemStyle">
 
                 <ImageView
-                    android:id="@+id/id_me_account_line_left"
+                    android:id="@+id/id_me_info_line_left"
                     style="@style/MeItemLeftStyle"
-                    android:src="@drawable/ic_account" />
+                    android:src="@drawable/ic_info" />
 
                 <TextView
-                    android:id="@+id/id_me_account_line_txt_left"
+                    android:id="@+id/id_me_info_line_txt_left"
                     style="@style/info_left_txt_style"
-                    android:text="@string/account_str" />
+                    android:text="@string/info_str" />
                 <TextView
-                    android:id="@+id/id_me_account_line_txt_right"
-                    android:text="meshine"
+                    android:id="@+id/id_me_info_line_txt_right"
                     style="@style/MeInfoItemContent" />
 
                 <ImageView
                     style="@style/MeItemRightStyle"
                     android:background="@drawable/ic_arrow_right" />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/me_split_line_color" />
-            <LinearLayout
-                android:id="@+id/id_me_sex_line"
-                style="@style/MeItemStyle">
 
-                <ImageView
-                    android:id="@+id/id_me_sex_line_left"
-                    style="@style/MeItemLeftStyle"
-                    android:src="@drawable/ic_sex" />
-
-                <TextView
-                    android:id="@+id/id_me_sex_line_txt_left"
-                    style="@style/info_left_txt_style"
-                    android:text="@string/sex_str" />
-                <TextView
-                    android:id="@+id/id_me_sex_line_txt_right"
-                    android:text="未知"
-                    style="@style/MeInfoItemContent" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/ic_arrow_right" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/me_split_line_color" />
-            <LinearLayout
-                android:id="@+id/id_me_location_line"
-                style="@style/MeItemStyle">
-
-                <ImageView
-                    android:id="@+id/id_me_location_line_left"
-                    style="@style/MeItemLeftStyle"
-                    android:src="@drawable/ic_location2" />
-
-                <TextView
-                    android:id="@+id/id_me_location_line_txt_left"
-                    style="@style/info_left_txt_style"
-                    android:text="@string/location_str" />
-                <TextView
-                    android:id="@+id/id_me_location_line_txt_right"
-                    android:text="未知"
-                    style="@style/MeInfoItemContent" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/ic_arrow_right" />
-            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/me_split_line_color" />
 
-            <LinearLayout
-                android:id="@+id/id_me_quote_line"
-                style="@style/MeItemStyle">
 
-                <ImageView
-                    android:id="@+id/id_me_quote_line_left"
-                    style="@style/MeItemLeftStyle"
-                    android:src="@drawable/ic_signature" />
 
-                <TextView
-                    android:id="@+id/id_me_quote_line_txt_left"
-                    style="@style/info_left_txt_style"
-                    android:text="@string/quote_str" />
-                <TextView
-                    android:id="@+id/id_me_quote_line_txt_right"
-                    style="@style/MeInfoItemContent" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/ic_arrow_right" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/me_split_line_color" />
             <LinearLayout
                 android:id="@+id/id_me_settings_line"
                 style="@style/MeItemStyle">

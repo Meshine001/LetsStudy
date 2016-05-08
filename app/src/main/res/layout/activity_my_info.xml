@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:id="@+id/id_conversation_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/colorPrimary"
+        app:leftSrc="@drawable/ic_back"
+        app:isShowRight="false"
+        app:isShowLeft="true"
+        app:isShowWarn="false"
+        app:centerText="@string/info_str"/>
+    <LinearLayout
+        android:id="@+id/id_me_account_line"
+        style="@style/MeItemStyle">
+
+        <ImageView
+            android:id="@+id/id_me_account_line_left"
+            style="@style/MeItemLeftStyle"
+            android:src="@drawable/ic_account" />
+
+        <TextView
+            android:id="@+id/id_me_account_line_txt_left"
+            style="@style/info_left_txt_style"
+            android:text="@string/account_str" />
+        <TextView
+            android:id="@+id/id_me_account_line_txt_right"
+            android:text="meshine"
+            style="@style/MeInfoItemContent" />
+
+        <ImageView
+            style="@style/MeItemRightStyle"
+            android:background="@drawable/ic_arrow_right" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+    <LinearLayout
+        android:id="@+id/id_me_sex_line"
+        style="@style/MeItemStyle">
+
+        <ImageView
+            android:id="@+id/id_me_sex_line_left"
+            style="@style/MeItemLeftStyle"
+            android:src="@drawable/ic_sex" />
+
+        <TextView
+            android:id="@+id/id_me_sex_line_txt_left"
+            style="@style/info_left_txt_style"
+            android:text="@string/sex_str" />
+        <TextView
+            android:id="@+id/id_me_sex_line_txt_right"
+            android:text="未知"
+            style="@style/MeInfoItemContent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_arrow_right" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+    <LinearLayout
+        android:id="@+id/id_me_location_line"
+        style="@style/MeItemStyle">
+
+        <ImageView
+            android:id="@+id/id_me_location_line_left"
+            style="@style/MeItemLeftStyle"
+            android:src="@drawable/ic_location2" />
+
+        <TextView
+            android:id="@+id/id_me_location_line_txt_left"
+            style="@style/info_left_txt_style"
+            android:text="@string/location_str" />
+        <TextView
+            android:id="@+id/id_me_location_line_txt_right"
+            android:text="未知"
+            style="@style/MeInfoItemContent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_arrow_right" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+    <LinearLayout
+        android:id="@+id/id_me_quote_line"
+        style="@style/MeItemStyle">
+
+        <ImageView
+            android:id="@+id/id_me_quote_line_left"
+            style="@style/MeItemLeftStyle"
+            android:src="@drawable/ic_signature" />
+
+        <TextView
+            android:id="@+id/id_me_quote_line_txt_left"
+            style="@style/info_left_txt_style"
+            android:text="@string/quote_str" />
+        <TextView
+            android:id="@+id/id_me_quote_line_txt_right"
+            style="@style/MeInfoItemContent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_arrow_right" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+
+</LinearLayout>

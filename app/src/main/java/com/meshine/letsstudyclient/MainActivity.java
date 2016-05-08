@@ -19,6 +19,7 @@ import com.meshine.letsstudyclient.fragment.TabTreeFragment;
 import com.meshine.letsstudyclient.fragment.TabTreeFragment_;
 import com.meshine.letsstudyclient.fragment.TabTwoFragment;
 import com.meshine.letsstudyclient.fragment.TabTwoFragment_;
+import com.meshine.letsstudyclient.tools.AppManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -86,6 +87,7 @@ public class MainActivity extends FragmentActivity {
      */
     @AfterViews
     public void initTab(){
+        AppManager.getAppManager().addActivity(this);
         fragmentManager = getSupportFragmentManager();
         setTabSelection(1);
     }

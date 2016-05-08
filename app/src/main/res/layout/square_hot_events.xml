@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="@color/me_split_line_color"
+        android:visibility="visible"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/rank_tag_size"
+            android:layout_height="@dimen/rank_tag_size"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_tag" />
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommend_events_str"
+            />
+    </LinearLayout>
+    <com.meshine.letsstudyclient.widget.ExpandListView
+        android:id="@+id/id_square_recommend_events_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.meshine.letsstudyclient.widget.ExpandListView>
+
+
+</LinearLayout>

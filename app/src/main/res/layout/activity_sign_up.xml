@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/top_bar"/>
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:id="@+id/id_sign_up_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/colorPrimary"
+        app:leftSrc="@drawable/ic_back"
+        app:isShowRight="false"
+        app:isShowLeft="true"
+        app:isShowWarn="false"
+        app:centerText="@string/sign_up_new_user_str"/>
   <LinearLayout
       android:layout_margin="20dp"
       android:layout_width="match_parent"
@@ -13,10 +23,12 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:id="@+id/id_sign_up_username"
+          android:drawableStart="@drawable/ic_user_small"
           android:hint="用户名(数字、字母、_下划线组成)"/>
       <EditText
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:drawableStart="@drawable/ic_password_small"
           android:id="@+id/id_sign_up_password"
           android:hint="用户密码"/>
       <Button
@@ -24,7 +36,9 @@
           android:layout_marginTop="10dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="注册"/>
+          android:background="@drawable/btn_sign_in"
+          android:textColor="@color/white"
+          android:text="@string/sign_up_str"/>
   </LinearLayout>
 
 </LinearLayout>

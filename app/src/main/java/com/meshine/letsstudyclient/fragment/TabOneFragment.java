@@ -1,28 +1,21 @@
 package com.meshine.letsstudyclient.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.meshine.letsstudyclient.R;
-import com.meshine.letsstudyclient.adapter.SquareInfoAdapter;
+import com.meshine.letsstudyclient.adapter.EventAdapter;
+import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.bean.SquareInfo;
 import com.meshine.letsstudyclient.widget.AdBannerView;
 import com.meshine.letsstudyclient.widget.ExpandListView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -33,26 +26,36 @@ import java.util.List;
  * Created by Ming on 2016/4/24.
  */
 @EFragment(R.layout.fragment_tab_one)
-public class TabOneFragment extends Fragment {
-
-    @ViewById(R.id.id_square_scroll_view)
-    PullToRefreshScrollView scrollView;
+public class TabOneFragment extends BaseFragment {
 
     @ViewById(R.id.id_square_ad_banner)
     AdBannerView adBanner;
 
-    @ViewById(R.id.id_square_info_list)
-    ExpandListView lvInfos;
+    @ViewById(R.id.id_square_top1_iv)
+    ImageView ivTop1;
+    @ViewById(R.id.id_square_top2_iv)
+    ImageView ivTop2;
+    @ViewById(R.id.id_square_top3_iv)
+    ImageView ivTop3;
+    @ViewById(R.id.id_square_top4_iv)
+    ImageView ivTop4;
+    @ViewById(R.id.id_square_top5_iv)
+    ImageView ivTop5;
 
-    List<SquareInfo> infos = new ArrayList<>();
 
-    SquareInfoAdapter infoAdapter;
+    @ViewById(R.id.id_square_recommend_events_lv)
+    ExpandListView recommendLv;
+
+    List<Event> recommendEvents = new ArrayList<>();
+    EventAdapter eventAdapter;
 
     @AfterViews
     void init() {
         initAd();
-        initData();
+        initTop5();
         initInfoListView();
+        initData();
+
     }
 
     /**
@@ -87,6 +90,44 @@ public class TabOneFragment extends Fragment {
         });
     }
 
+    /**
+     * 初始化Top5
+     */
+    void initTop5(){
+        String top1 = "http://img1.imgtn.bdimg.com/it/u=693362385,3280695814&fm=21&gp=0.jpg";
+        String top2 = "http://www.qqpk.cn/Article/UploadFiles/201205/20120510093022882.jpg";
+        String top3 = "http://www.touxiang.cn/uploads/20131121/21-074919_163.jpg";
+        String top4 = "http://hdn.xnimg.cn/photos/hdn321/20130612/2235/h_main_NNN4_e80a000007df111a.jpg";
+        String top5 = "http://www.qq1234.org/uploads/allimg/150311/114332F11-2.jpg";
+
+        Glide.with(this).load(top1)
+                .placeholder(R.drawable.ic_tab_square_normal)
+                .dontAnimate()
+                .dontTransform()
+                .into(ivTop1);
+        Glide.with(this).load(top2)
+                .placeholder(R.drawable.ic_tab_square_normal)
+                .dontAnimate()
+                .dontTransform()
+                .into(ivTop2);
+        Glide.with(this).load(top3)
+                .placeholder(R.drawable.ic_tab_square_normal)
+                .dontAnimate()
+                .dontTransform()
+                .into(ivTop3);
+        Glide.with(this).load(top4)
+                .placeholder(R.drawable.ic_tab_square_normal)
+                .dontAnimate()
+                .dontTransform()
+                .into(ivTop4);
+        Glide.with(this).load(top5)
+                .placeholder(R.drawable.ic_tab_square_normal)
+                .dontAnimate()
+                .dontTransform()
+                .into(ivTop5);
+
+    }
+
     @Override
     public void onDestroyView() {
         adBanner.stopLoop();
@@ -94,39 +135,46 @@ public class TabOneFragment extends Fragment {
     }
 
     void initData() {
-        for (int i = 0; i < 5; i++) {
-            SquareInfo info = new SquareInfo("http", "图书馆二楼", "一男二女");
-            infos.add(info);
-        }
+        recommendEvents.add(new Event("http://ww2.sinaimg.cn/crop.0.0.1152.1152.1024/005Y9c72jw8epp0o2ogxjj30w00w0abq.jpg",
+                "我是学霸",
+                "周日图书馆约自习",
+                "2",
+                "男女不限",
+                "2016-05-12",
+                "来几个漂亮的妹子，一起搞学术。"));
+        recommendEvents.add(new Event("http://cdn.duitang.com/uploads/item/201407/01/20140701090724_FFTZS.jpeg",
+                "啊萌",
+                "星期二一起跑步",
+                "2",
+                "女生",
+                "2016-05-14",
+                "不喜欢和不帅的男生一起跑步，美女们约跑不。"));
+        recommendEvents.add(new Event("http://cdnq.duitang.com/uploads/item/201408/23/20140823154838_w4YCe.png",
+                "黄小鸭",
+                "谁一起去吃个饭啊",
+                "2",
+                "男生",
+                "2016-05-14",
+                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！"));
+        eventAdapter.notifyDataSetChanged();
     }
 
     void initInfoListView() {
-
-        scrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                //Toast.makeText(getContext(),"You pulled down ", Toast.LENGTH_SHORT).show();
-//                infos.clear();
-//                initData();
-//                infoAdapter.notifyDataSetChanged();
-                scrollView.onRefreshComplete();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                //Toast.makeText(getContext(),"You pulled up ", Toast.LENGTH_SHORT).show();
-                infos.add(new SquareInfo("hh", "新加的", "大家来"));
-                infoAdapter.notifyDataSetChanged();
-                scrollView.onRefreshComplete();
-                scrollView.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-            }
-        });
-
-
-        infoAdapter = new SquareInfoAdapter(infos, getContext());
-        lvInfos.setAdapter(infoAdapter);
-
-        scrollView.setFocusableInTouchMode(true);
-        scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        eventAdapter = new EventAdapter(recommendEvents,getContext());
+        recommendLv.setAdapter(eventAdapter);
     }
+
+    @Click({R.id.id_square_new_event})
+    void onClick(View view){
+        switch (view.getId()){
+            case R.id.id_square_new_event:
+                if (isLogIn()){
+
+                }else {
+                    logIn();
+                }
+                break;
+        }
+    }
+
 }

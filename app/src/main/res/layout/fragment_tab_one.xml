@@ -5,113 +5,78 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="60dp"
-        >
-
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
         <LinearLayout
-            android:layout_marginStart="@dimen/widget_margin"
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom">
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/widget_margin"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
             <ImageView
-                android:scaleType="fitXY"
                 android:id="@+id/id_square_location_ic"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_location"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_location" />
 
             <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/id_square_location_ic"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:textColor="@color/white"
-                android:text="西安交通大学" />
+                android:text="西安交通大学"
+                android:textColor="@color/white" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/id_square_new_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_plus" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentEnd="true"
-                android:gravity="bottom">
-                <ImageView
-                    android:scaleType="fitXY"
-                    android:id="@+id/id_square_calendar_ic"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calendar"/>
-                <TextView
-                    android:layout_marginStart="3dp"
-                    android:layout_marginEnd="@dimen/widget_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="签到" />
-            </LinearLayout>
-
+                android:layout_marginEnd="@dimen/widget_margin"
+                android:layout_marginStart="3dp"
+                android:text="@string/new_events"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </RelativeLayout>
 
-
-
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    <ScrollView
         android:id="@+id/id_square_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ptr:ptrMode="pullFromEnd"
-        ptr:ptrShowIndicator="false">
+        android:background="@color/square_bg_color">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <com.meshine.letsstudyclient.widget.AdBannerView
                 android:id="@+id/id_square_ad_banner"
                 android:layout_width="match_parent"
-                android:layout_height="120dp">
+                android:layout_height="@dimen/ad_banner_height">
 
             </com.meshine.letsstudyclient.widget.AdBannerView>
-            <LinearLayout
-                android:layout_marginTop="@dimen/widget_margin"
-                android:layout_marginBottom="2dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:layout_marginStart="@dimen/widget_margin"
-                    android:layout_marginEnd="@dimen/widget_margin"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_tag_star"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:text="最新活动"/>
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"/>
-            <com.meshine.letsstudyclient.widget.ExpandListView
-                android:id="@+id/id_square_info_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </com.meshine.letsstudyclient.widget.ExpandListView>
+            <include layout="@layout/square_menu"/>
+            <include layout="@layout/laiyue_toutiao"/>
+            <include layout="@layout/square_top_5"/>
+            <include layout="@layout/square_hot_events"/>
         </LinearLayout>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
-
-
-
+    </ScrollView>
 
 </LinearLayout>

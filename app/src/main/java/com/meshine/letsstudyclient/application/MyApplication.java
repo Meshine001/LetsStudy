@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.meshine.letsstudyclient.receiver.NotificationClickEventReceiver;
 import com.meshine.letsstudyclient.tools.MyPrefs;
-import com.meshine.letsstudyclient.tools.MyPrefs_;
 
 import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;

@@ -2,8 +2,18 @@
     <string name="app_name">一起学习吧</string>
     <string name="tab1_string">广场</string>
     <string name="tab2_string">通讯录</string>
-    <string name="tab3_string">活动</string>
+    <string name="tab3_string">会话</string>
     <string name="tab4_string">我</string>
+
+    <string name="new_events">新活动</string>
+
+    <string name="please_login_str">请先登入</string>
+    <string name="sign_up_str">注册</string>
+    <string name="forget_password_str">忘记密码</string>
+    <string name="third_login">使用微信、QQ、微博账号登入</string>
+
+    <string name="sign_up_new_user_str">注册新用户</string>
+
 
     <string name="str_chat_recorder_normal">按住说话</string>
     <string name="str_chat_recorder_recording">松开结束</string>
@@ -185,7 +195,7 @@
     <string name="sdk_87x_871506">imei无效</string>
     <string name="sdk_87x_871201">请求超时，请检查您的网络</string>
 
-
+    <string name="info_str">个人信息</string>
     <string name="account_str">账号</string>
     <string name="sex_str">性别</string>
     <string name="location_str">地区</string>
@@ -195,5 +205,20 @@
     <string name="about_str">关于</string>
     <string name="feedback_str">意见反馈</string>
     <string name="exit_str">安全退出</string>
+
+    <string name="newest_events_str">最新活动</string>
+    <string name="hot_events_str">热门活动</string>
+    <string name="rank_str">达人榜</string>
+    <string name="simple_events_str">经典活动</string>
+    <string name="old_events_str">活动回顾</string>
+    <string name="my_events_str">我的活动</string>
+    <string name="lets_eat">约饭</string>
+    <string name="lets_sport">约跑</string>
+    <string name="lets_study">约自习</string>
+    <string name="lets_report">约讲座</string>
+    <string name="lets_others">其他</string>
+    <string name="recommend_events_str">推荐活动</string>
+
+
 
 </resources>

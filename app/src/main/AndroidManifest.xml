@@ -48,7 +48,7 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <!-- -->
-        <activity android:name=".LoginActivity_">
+        <activity android:name=".MainActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" ></action>
 
@@ -60,11 +60,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
-        <activity android:name=".MainActivity_"/>
+        <activity android:name=".LoginActivity_"/>
         <activity android:name=".SignUpActivity_"/>
-
-
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".MyInfoActivity_"/>
+        <activity android:name=".SettingsActivity_"/>
 
 
         <!-- Required Push SDK核心功能-->

@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.MyPrefs_;
+import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -39,16 +41,32 @@ public class LoginActivity extends BaseActivity {
     @ViewById(R.id.id_login_sign_up)
     TextView btnSignUp;
 
+    @ViewById(R.id.id_sign_in_topbar)
+    TopBarView topbar;
+
     @Pref
     MyPrefs_ myPrefs;
 
     @AfterViews
     void init(){
-        if (myPrefs.username().exists()){
-            goMain();
-        }
+        initTopbar();
     }
 
+    @Override
+    public void initTopbar() {
+        super.initTopbar();
+        topbar.setOnTopBarClickListener(new TopBarView.OnTopBarClickListener() {
+            @Override
+            public void onTopBarRightClick(View v) {
+
+            }
+
+            @Override
+            public void onTopBarLeftClick(View v) {
+                AppManager.getAppManager().finishActivity();
+            }
+        });
+    }
 
     @Click({R.id.id_login_sign_in,R.id.id_login_sign_up,R.id.id_login_wechat,R.id.id_login_qq,R.id.id_login_xin_lang})
     void onClick(View view){
@@ -107,7 +125,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     void goMain(){
-        Intent intent = new Intent(LoginActivity.this,MainActivity_.class);
-        startActivity(intent);
+//        Intent intent = new Intent(LoginActivity.this,MainActivity_.class);
+//        startActivity(intent);
+        finish();
     }
 }

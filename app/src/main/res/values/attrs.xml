@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- CircleImageView -->
     <declare-styleable name="CircleImageView">
         <attr name="civ_border_width" format="dimension" />
         <attr name="civ_border_color" format="color" />
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <!-- TopTitleBar -->
+    <declare-styleable name="TopBar">
+        <attr name="leftSrc" format="reference"></attr>
+        <attr name="centerText" format="string"></attr>
+        <attr name="rightSrc" format="reference"></attr>
+
+        <attr name="warnSrc" format="reference"></attr>
+
+        <attr name="isShowWarn" format="boolean"></attr>
+        <attr name="isShowLeft" format="boolean"></attr>
+        <attr name="isShowRight" format="boolean"></attr>
+
+        <attr name="isBack" format="boolean"></attr>
+
+        <attr name="centerTextSize" format="dimension"></attr>
+        <attr name="centerTextColor" format="color"></attr>
     </declare-styleable>
 </resources>

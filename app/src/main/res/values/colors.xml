@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#83d3cc</color>
+    <color name="colorPrimary">#e74c3c</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -16,6 +16,8 @@
     <color name="item_click_bg_color">#dddddd</color>
     <color name="me_split_line_color">#d0d0d0</color>
 
+    <color name="rank_item_color">@color/white</color>
+    <color name="square_bg_color">#d0d0d0</color>
 
     <color name="transparent">#00000000</color><!--透明色 -->
     <color name="white">#FFFFFF</color><!--白色 -->

@@ -15,19 +15,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.meshine.letsstudyclient.LoginActivity_;
+import com.meshine.letsstudyclient.MyInfoActivity_;
 import com.meshine.letsstudyclient.R;
+import com.meshine.letsstudyclient.SettingsActivity;
+import com.meshine.letsstudyclient.SettingsActivity_;
+import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.FileUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
+import com.meshine.letsstudyclient.tools.MyPrefs_;
 import com.meshine.letsstudyclient.tools.UrIUtil;
 import com.meshine.letsstudyclient.widget.CircleImageView;
 import com.meshine.letsstudyclient.widget.PickAvatarDialog;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.File;
 
@@ -58,6 +65,9 @@ public class TabFourFragment extends Fragment {
     File uploadAvatar;
 
 
+    @Pref
+    MyPrefs_ myPrefs;
+
     UserInfo userInfo;
 
     @Nullable
@@ -72,12 +82,25 @@ public class TabFourFragment extends Fragment {
         initDialogs();
     }
 
-    @Click({R.id.id_me_avatar})
+    @Click({R.id.id_me_avatar,R.id.id_me_info_line,R.id.id_me_settings_line,R.id.id_me_exit_line})
     void onClick(View view){
         switch (view.getId()){
             case R.id.id_me_avatar:
                 pickAvatarDialog.show();
                 break;
+            case R.id.id_me_info_line:
+                Intent myInfo = new Intent(getContext(), MyInfoActivity_.class);
+                startActivity(myInfo);
+                break;
+            case R.id.id_me_settings_line:
+                Intent settings = new Intent(getContext(), SettingsActivity_.class);
+                startActivity(settings);
+                break;
+            case R.id.id_me_exit_line:
+                JMessageClient.logout();
+                AppManager.getAppManager().AppExit(getContext());
+                break;
+
         }
     }
 
@@ -189,25 +212,33 @@ public class TabFourFragment extends Fragment {
     }
 
     void initUserInfo(){
+
         userInfo = JMessageClient.getMyInfo();
 
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())){
-            userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-                @Override
-                public void gotResult(int status, String desc, Bitmap bitmap) {
-                    if (status == 0) {
-                        ivAvatar.setImageBitmap(bitmap);
-                    } else {
-                        ivAvatar.setImageResource(R.drawable.ic_avatar_default);
-                        HandleResponseCode.onHandle(getContext(), status, false);
-                    }
-                }
-            });
+        if (userInfo == null){
+            Intent intent = new Intent(getContext(), LoginActivity_.class);
+            startActivity(intent);
         }else {
-            ivAvatar.setImageResource(R.drawable.ic_avatar_default);
+            if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())){
+                userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                    @Override
+                    public void gotResult(int status, String desc, Bitmap bitmap) {
+                        if (status == 0) {
+                            ivAvatar.setImageBitmap(bitmap);
+                        } else {
+                            ivAvatar.setImageResource(R.drawable.ic_avatar_default);
+                            HandleResponseCode.onHandle(getContext(), status, false);
+                        }
+                    }
+                });
+            }else {
+                ivAvatar.setImageResource(R.drawable.ic_avatar_default);
+            }
+
+            tvNick.setText(userInfo.getNickname());
         }
 
-        tvNick.setText(userInfo.getNickname());
+
     }
 
 }
