@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">一起学习吧</string>
+    <string name="app_name">来约吧</string>
     <string name="tab1_string">广场</string>
     <string name="tab2_string">通讯录</string>
     <string name="tab3_string">会话</string>
@@ -13,6 +13,10 @@
     <string name="third_login">使用微信、QQ、微博账号登入</string>
 
     <string name="sign_up_new_user_str">注册新用户</string>
+
+    <string name="add_new_event">发起活动</string>
+    <string name="add_event_details">活动详情</string>
+    <string name="join_event">我要报名</string>
 
 
     <string name="str_chat_recorder_normal">按住说话</string>

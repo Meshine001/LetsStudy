@@ -1,12 +1,16 @@
 package com.meshine.letsstudyclient.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.meshine.letsstudyclient.EventDetailsActivity_;
+import com.meshine.letsstudyclient.NewEventActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
 import com.meshine.letsstudyclient.bean.Event;
@@ -162,6 +166,13 @@ public class TabOneFragment extends BaseFragment {
     void initInfoListView() {
         eventAdapter = new EventAdapter(recommendEvents,getContext());
         recommendLv.setAdapter(eventAdapter);
+        recommendLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(),EventDetailsActivity_.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Click({R.id.id_square_new_event})
@@ -169,7 +180,8 @@ public class TabOneFragment extends BaseFragment {
         switch (view.getId()){
             case R.id.id_square_new_event:
                 if (isLogIn()){
-
+                    Intent intent = new Intent(getContext(), NewEventActivity_.class);
+                    startActivity(intent);
                 }else {
                     logIn();
                 }

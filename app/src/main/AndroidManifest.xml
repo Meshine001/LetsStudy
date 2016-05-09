@@ -64,6 +64,12 @@
         <activity android:name=".SignUpActivity_"/>
         <activity android:name=".MyInfoActivity_"/>
         <activity android:name=".SettingsActivity_"/>
+        <activity android:name=".EventDetailsActivity_"/>
+        <activity android:name=".NewEventActivity_"/>
+
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
 
 
         <!-- Required Push SDK核心功能-->

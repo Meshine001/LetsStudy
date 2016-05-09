@@ -12,6 +12,7 @@
     <declare-styleable name="TopBar">
         <attr name="leftSrc" format="reference"></attr>
         <attr name="centerText" format="string"></attr>
+        <attr name="rightText" format="string"></attr>
         <attr name="rightSrc" format="reference"></attr>
 
         <attr name="warnSrc" format="reference"></attr>
@@ -24,5 +25,8 @@
 
         <attr name="centerTextSize" format="dimension"></attr>
         <attr name="centerTextColor" format="color"></attr>
+        <attr name="rightTextSize" format="dimension"></attr>
+        <attr name="rightTextColor" format="color"></attr>
+
     </declare-styleable>
 </resources>

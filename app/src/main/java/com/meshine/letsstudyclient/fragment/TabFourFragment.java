@@ -37,11 +37,13 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.File;
+import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * Created by Ming on 2016/4/24.
@@ -54,6 +56,7 @@ public class TabFourFragment extends Fragment {
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
     private static final int PHOTO_REQUEST_GALLERY_KITKAT = 3;// 从相册中选择,sdk >= 4.4
     private static final int PHOTO_REQUEST_CUT = 4;// 结果
+    private static final int REQUEST_IMAGE = 0x1000;
 
     @ViewById(R.id.id_me_avatar)
     CircleImageView ivAvatar;
@@ -61,7 +64,7 @@ public class TabFourFragment extends Fragment {
     TextView tvNick;
 
     PickAvatarDialog pickAvatarDialog;
-    File  captureFile = new File(FileUtil.getNewPictureName(getContext()));
+    File captureFile = new File(FileUtil.getNewPictureName(getContext()));
     File uploadAvatar;
 
 
@@ -70,6 +73,8 @@ public class TabFourFragment extends Fragment {
 
     UserInfo userInfo;
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,16 +82,23 @@ public class TabFourFragment extends Fragment {
     }
 
     @AfterViews
-    void init(){
+    void init() {
         initUserInfo();
         initDialogs();
     }
 
-    @Click({R.id.id_me_avatar,R.id.id_me_info_line,R.id.id_me_settings_line,R.id.id_me_exit_line})
-    void onClick(View view){
-        switch (view.getId()){
+    @Override
+    public void onResume() {
+        super.onResume();
+        //initUserInfo();
+    }
+
+    @Click({R.id.id_me_avatar, R.id.id_me_info_line, R.id.id_me_settings_line, R.id.id_me_exit_line})
+    void onClick(View view) {
+        switch (view.getId()) {
             case R.id.id_me_avatar:
-                pickAvatarDialog.show();
+//                pickAvatarDialog.show();
+                openImageSelector();
                 break;
             case R.id.id_me_info_line:
                 Intent myInfo = new Intent(getContext(), MyInfoActivity_.class);
@@ -104,32 +116,53 @@ public class TabFourFragment extends Fragment {
         }
     }
 
-
+    void openImageSelector() {
+        Intent intent = new Intent(getContext(), MultiImageSelectorActivity.class);
+        // whether show camera
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+        // max select image amount
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 1);
+        // select mode (MultiImageSelectorActivity.MODE_SINGLE OR MultiImageSelectorActivity.MODE_MULTI)
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
+        // default select images (support array list)
+        //intent.putStringArrayListExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, defaultDataArray);
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
+            case REQUEST_IMAGE:
+                if(resultCode == Activity.RESULT_OK){
+                    // Get the result list of select image paths
+                    List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                    // do your logic ....
+                    Log.i(TAG,path.get(0));
+                    startPhotoZoom(Uri.fromFile(new File(path.get(0))));
+                }
+                break;
+
             case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
                 startPhotoZoom(Uri.fromFile(captureFile));
                 break;
             case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
                 // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                 if (data != null) {
-                    Log.i(TAG,"获得图片:"+data.toString());
-                    String path = UrIUtil.selectImage(getContext(),data);
+                    Log.i(TAG, "获得图片:" + data.toString());
+                    String path = UrIUtil.selectImage(getContext(), data);
                     startPhotoZoom(Uri.fromFile(new File(path)));
                 } else {
-                    Log.i(TAG,"获取数据为null");
+                    Log.i(TAG, "获取数据为null");
                 }
                 break;
             case PHOTO_REQUEST_GALLERY_KITKAT:// 当选择从本地获取图片时
                 // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                 if (data != null) {
-                    String path = UrIUtil.getPath(getContext(),data.getData());
+                    String path = UrIUtil.getPath(getContext(), data.getData());
                     startPhotoZoom(Uri.fromFile(new File(path)));
                 } else {
-                    Log.i(TAG,"获取数据为null");
+                    Log.i(TAG, "获取数据为null");
                 }
                 break;
             case PHOTO_REQUEST_CUT:// 返回的结果
@@ -141,6 +174,7 @@ public class TabFourFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
     private void startPhotoZoom(Uri uri) {
         Intent intent = new Intent();
         intent.setAction("com.android.camera.action.CROP");
@@ -156,34 +190,34 @@ public class TabFourFragment extends Fragment {
     }
 
 
-    void modifyAvatar(Intent data){
-        Log.i(TAG,"裁剪完成 ");
+    void modifyAvatar(Intent data) {
+        Log.i(TAG, "裁剪完成 ");
         // 拿到剪切数据
         Bitmap bmap = data.getParcelableExtra("data");
 
-        uploadAvatar = FileUtil.saveBitmapToFile(getContext(),bmap);
+        uploadAvatar = FileUtil.saveBitmapToFile(getContext(), bmap);
 
-        if (uploadAvatar!=null){
+        if (uploadAvatar != null) {
             uploadAvatar();
         }
 
     }
 
-    void uploadAvatar(){
+    void uploadAvatar() {
         JMessageClient.updateUserAvatar(uploadAvatar, new BasicCallback() {
             @Override
             public void gotResult(int status, String s) {
-                if (status==0){
+                if (status == 0) {
                     ivAvatar.setImageURI(Uri.fromFile(uploadAvatar));
-                }else {
-                    HandleResponseCode.onHandle(getContext(),status,true);
+                } else {
+                    HandleResponseCode.onHandle(getContext(), status, true);
                 }
             }
         });
     }
 
 
-    void initDialogs(){
+    void initDialogs() {
 
         pickAvatarDialog = new PickAvatarDialog(getContext(), new PickAvatarDialog.OnPickAvatarDialogListener() {
             @Override
@@ -191,9 +225,9 @@ public class TabFourFragment extends Fragment {
                 Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);//ACTION_OPEN_DOCUMENT
                 getAlbum.addCategory(Intent.CATEGORY_OPENABLE);
                 getAlbum.setType("image/*");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-                    startActivityForResult(getAlbum,PHOTO_REQUEST_GALLERY_KITKAT);
-                }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY_KITKAT);
+                } else {
                     startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
                 }
             }
@@ -211,15 +245,15 @@ public class TabFourFragment extends Fragment {
         });
     }
 
-    void initUserInfo(){
+    void initUserInfo() {
 
         userInfo = JMessageClient.getMyInfo();
 
-        if (userInfo == null){
+        if (userInfo == null) {
             Intent intent = new Intent(getContext(), LoginActivity_.class);
             startActivity(intent);
-        }else {
-            if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())){
+        } else {
+            if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())) {
                 userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
                     @Override
                     public void gotResult(int status, String desc, Bitmap bitmap) {
@@ -231,7 +265,7 @@ public class TabFourFragment extends Fragment {
                         }
                     }
                 });
-            }else {
+            } else {
                 ivAvatar.setImageResource(R.drawable.ic_avatar_default);
             }
 

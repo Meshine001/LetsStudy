@@ -22,6 +22,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 
 /**
@@ -75,6 +76,7 @@ public class SignUpActivity extends BaseActivity {
         }
     }
 
+
     void login(final String username, final String password){
         Log.i(TAG,"开始登录");
         setProgressDialogTile("提示").setMessage("正在登入...");
@@ -84,15 +86,37 @@ public class SignUpActivity extends BaseActivity {
             public void gotResult(int status, String s) {
                 if (status == 0) {
                     Log.i(TAG,"登录成功");
-                    progressDialogDismiss();
-                    myPrefs.edit()
-                            .username()
-                            .put(username)
-                            .password()
-                            .put(password)
-                            .apply();
-                    AppManager.getAppManager().finishActivity(SignUpActivity_.class);
-                    AppManager.getAppManager().finishActivity(LoginActivity_.class);
+                    UserInfo userInfo = JMessageClient.getMyInfo();
+                    if (userInfo.getNickname().equals("")){
+                        userInfo.setNickname("u_"+userInfo.getUserID());
+                        JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int status, String s) {
+                                progressDialogDismiss();
+                                myPrefs.edit()
+                                        .username()
+                                        .put(username)
+                                        .password()
+                                        .put(password)
+                                        .apply();
+                                AppManager.getAppManager().finishActivity(SignUpActivity_.class);
+                                AppManager.getAppManager().finishActivity(LoginActivity_.class);
+
+                            }
+                        });
+                    }else {
+                        progressDialogDismiss();
+                        myPrefs.edit()
+                                .username()
+                                .put(username)
+                                .password()
+                                .put(password)
+                                .apply();
+                        AppManager.getAppManager().finishActivity(SignUpActivity_.class);
+                        AppManager.getAppManager().finishActivity(LoginActivity_.class);
+                    }
+
+
                 } else {
                     Log.i(TAG,"登录失败");
                     progressDialogDismiss();
