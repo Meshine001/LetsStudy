@@ -7,11 +7,14 @@ import android.os.PersistableBundle;
 
 import com.meshine.letsstudyclient.tools.AppManager;
 
+import cn.jpush.im.android.api.JMessageClient;
+
 
 /**
  * Created by Ming on 2016/5/5.
  */
 public class BaseActivity extends Activity {
+
     private ProgressDialog progressDialog;
 
 
@@ -20,8 +23,10 @@ public class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(this);
         AppManager.getAppManager().addActivity(this);
-
+       
     }
+
+
 
     public void initTopbar(){
 

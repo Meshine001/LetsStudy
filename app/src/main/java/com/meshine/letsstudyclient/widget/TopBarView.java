@@ -195,4 +195,8 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
         showWarn();
     }
 
+    public void setTilte(String title){
+        this.mTitleTv.setText(title);
+    }
+
 }

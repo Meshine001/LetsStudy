@@ -20,6 +20,7 @@ import android.widget.ListView;
 import com.meshine.letsstudyclient.adapter.ChatMessageAdapter;
 import com.meshine.letsstudyclient.adapter.TextWatcherAdapter;
 import com.meshine.letsstudyclient.bean.ChatMessage;
+import com.meshine.letsstudyclient.widget.TopBarView;
 import com.rockerhieu.emojicon.EmojiconEditText;
 import com.rockerhieu.emojicon.EmojiconGridFragment;
 import com.rockerhieu.emojicon.EmojiconsFragment;
@@ -28,6 +29,7 @@ import com.rockerhieu.emojicon.emoji.Emojicon;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 
 /**
@@ -44,6 +47,9 @@ import cn.jpush.im.api.BasicCallback;
  */
 @EActivity(R.layout.activity_chat)
 public class ChatActivity extends FragmentActivity implements EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
+
+    @ViewById(R.id.id_chat_topbar)
+    TopBarView topbar;
 
     @ViewById(R.id.id_chat_et_message)
     EmojiconEditText etMessage;
@@ -70,6 +76,11 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     @ViewById(R.id.id_chat_msg_panel)
     ListView msgPanel;
 
+    @Extra("chatTarget")
+    String chatTarget;
+    @Extra("chatNick")
+    String chatNick;
+
     @AfterViews
     void init() {
         initMsgPanel();
@@ -77,9 +88,18 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
         initConversation();
     }
 
+
+
     void initConversation(){
-        if (mConv == null)
-        mConv = JMessageClient.getSingleConversation("Meshine");
+        topbar.setTilte(chatNick);
+        if (mConv == null){
+            mConv = JMessageClient.getSingleConversation(chatTarget);
+            if (mConv == null){
+                mConv = Conversation.createSingleConversation(chatTarget);
+
+            }
+        }
+
     }
 
 
@@ -220,5 +240,10 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     @Override
     public void onEmojiconClicked(Emojicon emojicon) {
         EmojiconsFragment.input(etMessage, emojicon);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

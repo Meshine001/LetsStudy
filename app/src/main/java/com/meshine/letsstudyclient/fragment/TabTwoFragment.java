@@ -1,5 +1,6 @@
 package com.meshine.letsstudyclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.meshine.letsstudyclient.ChatActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -65,7 +67,10 @@ public class TabTwoFragment extends Fragment {
         contactsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(getContext(), ChatActivity_.class);
+                intent.putExtra("chatTarget",userInfos.get(position).getUserName());
+                intent.putExtra("chatNick",userInfos.get(position).getNickname());
+                startActivity(intent);
             }
         });
     }

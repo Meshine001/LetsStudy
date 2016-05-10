@@ -1,46 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
 
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/id_layout_chat_top_bar"
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:layout_alignParentTop="true"
+        android:id="@+id/id_chat_topbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/topbar_height"
+        app:centerText="@string/chat"
+        app:isShowLeft="true"
+        app:isShowRight="false"
+        app:isShowWarn="false"
+        app:isBack = "true"
+        app:leftSrc="@drawable/ic_back">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/app_style">
-
-            <ImageView
-                android:id="@+id/id_chat_topbar_back"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/ic_back" />
-
-
-            <TextView
-                android:id="@+id/id_chat_topbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Title"
-                android:textAlignment="gravity"
-                android:textColor="@color/white"
-                android:textSize="@dimen/topbar_title_text_size" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
+    </com.meshine.letsstudyclient.widget.TopBarView>
     <LinearLayout
         android:id="@+id/id_layout_chat_tool_bar"
         android:layout_width="match_parent"
@@ -97,14 +74,9 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_face" />
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
-
             <ImageView
-               android:id="@+id/id_chat_extend_plus"
+                android:id="@+id/id_chat_extend_plus"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
@@ -130,7 +102,7 @@
             android:id="@+id/id_chat_emoj_icons"
             android:layout_width="match_parent"
             android:layout_height="@dimen/chat_emoj_icons_height"
-        />
+            />
 
         <FrameLayout
             android:visibility="gone"
@@ -153,19 +125,14 @@
         </FrameLayout>
     </LinearLayout>
 
-
     <ListView
-
         android:id="@+id/id_chat_msg_panel"
+        android:layout_below="@id/id_chat_topbar"
+        android:layout_above="@id/id_layout_chat_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/id_layout_chat_tool_bar"
-        android:layout_below="@id/id_layout_chat_top_bar"
         android:background="@color/chat_background_color"
         android:divider="@null"
         android:listSelector="@color/transparent">
-
     </ListView>
-
-
 </RelativeLayout>
