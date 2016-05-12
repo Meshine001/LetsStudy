@@ -3,6 +3,7 @@ package com.meshine.letsstudyclient.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.meshine.letsstudyclient.receiver.NotificationClickEventReceiver;
 import com.meshine.letsstudyclient.tools.MyPrefs;
 
@@ -66,6 +67,9 @@ public class MyApplication extends Application {
         JMessageClient.setNotificationMode(JMessageClient.NOTI_MODE_DEFAULT);
         //注册Notification点击的接收器
         new NotificationClickEventReceiver(getApplicationContext());
+
+        //百度地图
+        SDKInitializer.initialize(getApplicationContext());
     }
 
 }

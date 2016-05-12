@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.meshine.letsstudyclient.EventDetailsActivity_;
+import com.meshine.letsstudyclient.LetsRunActivity_;
 import com.meshine.letsstudyclient.NewEventActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
@@ -247,6 +248,8 @@ public class TabOneFragment extends BaseFragment {
                 break;
             //约跑
             case R.id.id_square_menu_lets_run:
+                Intent intent = new Intent(getContext(), LetsRunActivity_.class);
+                startActivity(intent);
                 break;
             //约自习
             case R.id.id_square_menu_lets_study:

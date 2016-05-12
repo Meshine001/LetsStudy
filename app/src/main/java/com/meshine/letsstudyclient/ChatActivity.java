@@ -84,6 +84,8 @@ public class ChatActivity extends FragmentActivity implements View.OnClickListen
         }
     };
 
+
+
     List<Message> messages = new ArrayList<>();
     ChatMessageAdapter messageAdapter;
     Conversation mConv;

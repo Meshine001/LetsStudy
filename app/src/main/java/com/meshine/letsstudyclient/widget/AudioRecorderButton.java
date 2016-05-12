@@ -45,19 +45,22 @@ public class AudioRecorderButton extends Button implements AudioManager.AudioSta
         super(context, attrs);
 
         mDialogManager = new DialogManager(getContext());
+        if (!isInEditMode()){
+            String rootDir = Environment.getExternalStorageDirectory() + "/letsStudy";
+            mAudioManager = AudioManager.getInstance(rootDir);
+            mAudioManager.setOnAudioStateLstener(this);
 
-        String rootDir = Environment.getExternalStorageDirectory() + "/letsStudy";
-        mAudioManager = AudioManager.getInstance(rootDir);
-        mAudioManager.setOnAudioStateLstener(this);
+            setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mAudioManager.prepareAudio();
+                    mReady = true;
+                    return false;
+                }
+            });
+        }
 
-        setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                mAudioManager.prepareAudio();
-                mReady = true;
-                return false;
-            }
-        });
+
     }
 
     /**
