@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.meshine.letsstudyclient.ChatActivity_;
+import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -67,7 +67,7 @@ public class TabTwoFragment extends Fragment {
         contactsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), ChatActivity_.class);
+                Intent intent = new Intent(getContext(), ChatActivity.class);
                 intent.putExtra("chatTarget",userInfos.get(position).getUserName());
                 intent.putExtra("chatNick",userInfos.get(position).getNickname());
                 startActivity(intent);

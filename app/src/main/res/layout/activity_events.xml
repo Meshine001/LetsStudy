@@ -5,18 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <com.meshine.letsstudyclient.widget.TopBarView
-        android:id="@+id/id_conversation_topbar"
+        android:id="@+id/id_events_topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/topbar_height"
         android:background="@color/colorPrimary"
+        app:leftSrc="@drawable/ic_back"
         app:isShowRight="false"
-        app:isShowLeft="false"
-        app:isShowWarn="false"
-        app:centerText="@string/tab3_string"/>
-    <ListView
-        android:id="@+id/id_conversation_list"
+        app:isShowLeft="true"
+        app:isShowWarn="false" />
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/id_events_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:ptrMode = "pullFromEnd">
 
-    </ListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
 </LinearLayout>

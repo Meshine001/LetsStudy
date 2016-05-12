@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,8 +33,36 @@ import java.util.List;
 @EFragment(R.layout.fragment_tab_one)
 public class TabOneFragment extends BaseFragment {
 
+    /**
+     * 广告页
+     */
     @ViewById(R.id.id_square_ad_banner)
     AdBannerView adBanner;
+
+    /**
+     * 主页菜单
+     */
+    @ViewById(R.id.id_square_menu_newest)
+    LinearLayout menuNewest;
+    @ViewById(R.id.id_square_menu_hotest)
+    LinearLayout menuHotest;
+    @ViewById(R.id.id_square_menu_classic)
+    LinearLayout menuClassic;
+    @ViewById(R.id.id_square_menu_rank)
+    LinearLayout menuRank;
+    @ViewById(R.id.id_square_menu_my)
+    LinearLayout menuMy;
+    @ViewById(R.id.id_square_menu_lets_eat)
+    LinearLayout menuLetsEat;
+    @ViewById(R.id.id_square_menu_lets_run)
+    LinearLayout menuLetsRun;
+    @ViewById(R.id.id_square_menu_lets_study)
+    LinearLayout menuLetsStudy;
+    @ViewById(R.id.id_square_menu_lets_report)
+    LinearLayout menuLetsReport;
+    @ViewById(R.id.id_square_menu_newest)
+    LinearLayout menuOthers;
+
 
     @ViewById(R.id.id_square_top1_iv)
     ImageView ivTop1;
@@ -64,7 +93,7 @@ public class TabOneFragment extends BaseFragment {
 
     /**
      * 初始化广告Banner
-     * */
+     */
     void initAd() {
         List<AdBannerView.BannerItem> bannerItems = new ArrayList<>();
         AdBannerView.BannerItem item1 = new AdBannerView.BannerItem("切, 你是否能在天堂看到人来人往", "https://img3.doubanio.com/view/photo/photo/public/p2327027746.jpg");
@@ -77,11 +106,11 @@ public class TabOneFragment extends BaseFragment {
         adBanner.setOnItemClickListener(new AdBannerView.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(getContext(),"You click " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You click " + String.valueOf(position), Toast.LENGTH_SHORT).show();
             }
         });
 
-        adBanner.setImageLoadder(new AdBannerView.ImageLoader(){
+        adBanner.setImageLoadder(new AdBannerView.ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
                 Glide.with(imageView.getContext())
@@ -97,7 +126,7 @@ public class TabOneFragment extends BaseFragment {
     /**
      * 初始化Top5
      */
-    void initTop5(){
+    void initTop5() {
         String top1 = "http://img1.imgtn.bdimg.com/it/u=693362385,3280695814&fm=21&gp=0.jpg";
         String top2 = "http://www.qqpk.cn/Article/UploadFiles/201205/20120510093022882.jpg";
         String top3 = "http://www.touxiang.cn/uploads/20131121/21-074919_163.jpg";
@@ -145,46 +174,88 @@ public class TabOneFragment extends BaseFragment {
                 "2",
                 "男女不限",
                 "2016-05-12",
-                "来几个漂亮的妹子，一起搞学术。"));
+                "来几个漂亮的妹子，一起搞学术。","HUO"));
         recommendEvents.add(new Event("http://cdn.duitang.com/uploads/item/201407/01/20140701090724_FFTZS.jpeg",
                 "啊萌",
                 "星期二一起跑步",
                 "2",
                 "女生",
                 "2016-05-14",
-                "不喜欢和不帅的男生一起跑步，美女们约跑不。"));
+                "不喜欢和不帅的男生一起跑步，美女们约跑不。","HUO"));
         recommendEvents.add(new Event("http://cdnq.duitang.com/uploads/item/201408/23/20140823154838_w4YCe.png",
                 "黄小鸭",
                 "谁一起去吃个饭啊",
                 "2",
                 "男生",
                 "2016-05-14",
-                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！"));
+                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！","HUO"));
         eventAdapter.notifyDataSetChanged();
     }
 
     void initInfoListView() {
-        eventAdapter = new EventAdapter(recommendEvents,getContext());
+        eventAdapter = new EventAdapter(recommendEvents, getContext());
         recommendLv.setAdapter(eventAdapter);
         recommendLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(),EventDetailsActivity_.class);
+                Intent intent = new Intent(getContext(), EventDetailsActivity_.class);
                 startActivity(intent);
             }
         });
     }
 
-    @Click({R.id.id_square_new_event})
-    void onClick(View view){
-        switch (view.getId()){
+    @Click({R.id.id_square_new_event,
+            R.id.id_square_menu_newest,
+            R.id.id_square_menu_hotest,
+            R.id.id_square_menu_classic,
+            R.id.id_square_menu_rank,
+            R.id.id_square_menu_my,
+            R.id.id_square_menu_lets_eat,
+            R.id.id_square_menu_lets_run,
+            R.id.id_square_menu_lets_study,
+            R.id.id_square_menu_lets_report,
+            R.id.id_square_menu_lets_others})
+    void onClick(View view) {
+        switch (view.getId()) {
+            //新活动
             case R.id.id_square_new_event:
-                if (isLogIn()){
+                if (isLogIn()) {
                     Intent intent = new Intent(getContext(), NewEventActivity_.class);
                     startActivity(intent);
-                }else {
+                } else {
                     logIn();
                 }
+                break;
+            //最新活动
+            case R.id.id_square_menu_newest:
+
+                break;
+            //热门活动
+            case R.id.id_square_menu_hotest:
+                break;
+            //经典活动
+            case R.id.id_square_menu_classic:
+                break;
+            //达人榜
+            case R.id.id_square_menu_rank:
+                break;
+            //我的活动
+            case R.id.id_square_menu_my:
+                break;
+            //约饭
+            case R.id.id_square_menu_lets_eat:
+                break;
+            //约跑
+            case R.id.id_square_menu_lets_run:
+                break;
+            //约自习
+            case R.id.id_square_menu_lets_study:
+                break;
+            //约讲座
+            case R.id.id_square_menu_lets_report:
+                break;
+            //其他
+            case R.id.id_square_menu_lets_others:
                 break;
         }
     }

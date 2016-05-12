@@ -126,6 +126,7 @@
     </LinearLayout>
 
     <ListView
+        android:transcriptMode="alwaysScroll"
         android:id="@+id/id_chat_msg_panel"
         android:layout_below="@id/id_chat_topbar"
         android:layout_above="@id/id_layout_chat_tool_bar"
@@ -133,6 +134,7 @@
         android:layout_height="wrap_content"
         android:background="@color/chat_background_color"
         android:divider="@null"
-        android:listSelector="@color/transparent">
+        android:listSelector="@color/transparent"
+        android:stackFromBottom="true">
     </ListView>
 </RelativeLayout>

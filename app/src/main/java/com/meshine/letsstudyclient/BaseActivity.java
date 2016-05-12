@@ -23,13 +23,13 @@ public class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(this);
         AppManager.getAppManager().addActivity(this);
-       
+
+
     }
 
-
-
-    public void initTopbar(){
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -47,6 +47,13 @@ public class BaseActivity extends Activity {
         progressDialog.setMessage(message);
         return progressDialog;
     }
+
+
+    public void initTopbar(){
+
+    }
+
+
 
     public void progressDialogShow(){
         progressDialog.show();

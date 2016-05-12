@@ -98,6 +98,10 @@ public class ChatMessageAdapter extends BaseAdapter{
         return position;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 9;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -278,7 +282,7 @@ public class ChatMessageAdapter extends BaseAdapter{
         }
     }
 
-    public static class ViewHolder {
+    public  class ViewHolder {
         CircleImageView avatar;
         TextView displayName;
         EmojiconTextView txtContent;

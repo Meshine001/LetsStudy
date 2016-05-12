@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.meshine.letsstudyclient.ChatActivity_;
+import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.application.MyApplication;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -43,7 +43,7 @@ public class NotificationClickEventReceiver {
             String appKey = msg.getFromAppKey();
             ConversationType type = msg.getTargetType();
             Conversation conv;
-            Intent notificationIntent = new Intent(mContext, ChatActivity_.class);
+            Intent notificationIntent = new Intent(mContext, ChatActivity.class);
             if (type == ConversationType.single) {
                 conv = JMessageClient.getSingleConversation(targetId, appKey);
                 notificationIntent.putExtra(MyApplication.IS_GROUP, false);

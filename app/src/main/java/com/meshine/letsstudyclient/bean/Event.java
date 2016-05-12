@@ -4,6 +4,9 @@ package com.meshine.letsstudyclient.bean;
  * Created by Ming on 2016/5/7.
  */
 public class Event {
+
+
+
     private String avatar;
     private String nick;
     private String title;
@@ -11,8 +14,9 @@ public class Event {
     private String limit;
     private String date;
     private String summary;
+    private String type;
 
-    public Event(String avatar, String nick, String title, String number, String limit, String date, String summary) {
+    public Event(String avatar, String nick, String title, String number, String limit, String date, String summary, String type) {
         this.avatar = avatar;
         this.nick = nick;
         this.title = title;
@@ -20,6 +24,15 @@ public class Event {
         this.limit = limit;
         this.date = date;
         this.summary = summary;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAvatar() {

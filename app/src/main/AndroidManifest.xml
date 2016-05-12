@@ -56,7 +56,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ChatActivity_"
+        <activity android:name=".ChatActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
@@ -66,6 +66,7 @@
         <activity android:name=".SettingsActivity_"/>
         <activity android:name=".EventDetailsActivity_"/>
         <activity android:name=".NewEventActivity_"/>
+        <activity android:name=".EventsActivity_"/>
 
         <activity
             android:configChanges="orientation|screenSize"

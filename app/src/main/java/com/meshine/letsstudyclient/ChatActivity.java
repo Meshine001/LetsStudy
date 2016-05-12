@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.meshine.letsstudyclient.adapter.ChatMessageAdapter;
+import com.meshine.letsstudyclient.adapter.ConversationAdapter;
 import com.meshine.letsstudyclient.adapter.TextWatcherAdapter;
 import com.meshine.letsstudyclient.bean.ChatMessage;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -36,7 +41,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.CustomContent;
+import cn.jpush.im.android.api.content.EventNotificationContent;
+import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.content.VoiceContent;
+import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -45,61 +55,165 @@ import cn.jpush.im.api.BasicCallback;
 /**
  * Created by Meshine on 16/4/28.
  */
-@EActivity(R.layout.activity_chat)
-public class ChatActivity extends FragmentActivity implements EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
+public class ChatActivity extends FragmentActivity implements View.OnClickListener,EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
 
-    @ViewById(R.id.id_chat_topbar)
+    private static final String TAG = ChatActivity.class.getName();
+
     TopBarView topbar;
 
-    @ViewById(R.id.id_chat_et_message)
     EmojiconEditText etMessage;
 
-    @ViewById(R.id.id_chat_extend_plus)
     ImageView ivExtendPlus;
 
-    @ViewById(R.id.id_chat_send)
     Button btnSend;
 
-    @ViewById(R.id.id_chat_emoj)
     ImageView ivEmoj;
 
     boolean useDefault = true;
 
-    @ViewById(R.id.id_chat_emoj_icons)
     FrameLayout emojIcons;
 
+    /**
+     * 接收消息进程的消息
+     */
+    Handler messageHandler = new Handler(){
+        @Override
+        public void handleMessage(android.os.Message message) {
+            Message msg = (Message) message.obj;
+            handleJMessage(msg);
+        }
+    };
 
     List<Message> messages = new ArrayList<>();
     ChatMessageAdapter messageAdapter;
     Conversation mConv;
 
-    @ViewById(R.id.id_chat_msg_panel)
     ListView msgPanel;
 
-    @Extra("chatTarget")
-    String chatTarget;
-    @Extra("chatNick")
-    String chatNick;
+    String targetUserName;
+    String targetNick;
 
-    @AfterViews
-    void init() {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+        JMessageClient.registerEventReceiver(this);
+        initViews();
+        initExtras();
+        initComponent();
+    }
+
+    @Override
+    protected void onDestroy() {
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onDestroy();
+    }
+
+    void initExtras(){
+        targetUserName = getIntent().getStringExtra("targetUserName");
+        targetNick = getIntent().getStringExtra("targetNick");
+    }
+    void initComponent() {
         initMsgPanel();
         initEmoj();
         initConversation();
     }
 
+    void initViews(){
 
-
-    void initConversation(){
-        topbar.setTilte(chatNick);
-        if (mConv == null){
-            mConv = JMessageClient.getSingleConversation(chatTarget);
-            if (mConv == null){
-                mConv = Conversation.createSingleConversation(chatTarget);
+        topbar = (TopBarView) findViewById(R.id.id_chat_topbar);
+        topbar.setOnTopBarClickListener(new TopBarView.OnTopBarClickListener() {
+            @Override
+            public void onTopBarRightClick(View v) {
 
             }
-        }
 
+            @Override
+            public void onTopBarLeftClick(View v) {
+                finish();
+            }
+        });
+
+        etMessage = (EmojiconEditText) findViewById(R.id.id_chat_et_message);
+        etMessage.setOnClickListener(this);
+        ivExtendPlus = (ImageView) findViewById(R.id.id_chat_extend_plus);
+        ivExtendPlus.setOnClickListener(this);
+        btnSend = (Button) findViewById(R.id.id_chat_send);
+        btnSend.setOnClickListener(this);
+        ivEmoj = (ImageView) findViewById(R.id.id_chat_emoj);
+        ivEmoj.setOnClickListener(this);
+        emojIcons = (FrameLayout) findViewById(R.id.id_chat_emoj_icons);
+        msgPanel = (ListView) findViewById(R.id.id_chat_msg_panel);
+
+    }
+
+    void handleJMessage(Message msg){
+
+        switch (msg.getContentType()){
+            case text:
+                //处理文字消息
+                TextContent textContent = (TextContent) msg.getContent();
+                textContent.getText();
+                Log.i(TAG,"Received a text message => "+msg.getDirect());
+                showNewMessage(msg);
+                break;
+            case image:
+                //处理图片消息
+                ImageContent imageContent = (ImageContent) msg.getContent();
+                imageContent.getLocalPath();//图片本地地址
+                imageContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
+                break;
+            case voice:
+                //处理语音消息
+                VoiceContent voiceContent = (VoiceContent) msg.getContent();
+                voiceContent.getLocalPath();//语音文件本地地址
+                voiceContent.getDuration();//语音文件时长
+                break;
+            case custom:
+                //处理自定义消息
+                CustomContent customContent = (CustomContent) msg.getContent();
+                customContent.getNumberValue("custom_num"); //获取自定义的值
+                customContent.getBooleanValue("custom_boolean");
+                customContent.getStringValue("custom_string");
+                break;
+            case eventNotification:
+                //处理事件提醒消息
+                EventNotificationContent eventNotificationContent = (EventNotificationContent)msg.getContent();
+                switch (eventNotificationContent.getEventNotificationType()){
+                    case group_member_added:
+                        //群成员加群事件
+                        break;
+                    case group_member_removed:
+                        //群成员被踢事件（只有被踢的用户能收到此事件）
+                        break;
+                    case group_member_exit:
+                        //群成员退群事件（已弃用）
+                        break;
+                }
+                break;
+        }
+    }
+
+    public void onEvent(MessageEvent event){
+        Message msg = event.getMessage();
+        Log.i(TAG,"Received a new message.");
+        android.os.Message m = new android.os.Message();
+        m.obj = msg;
+        messageHandler.sendMessage(m);
+    }
+
+    void initConversation(){
+        topbar.setTilte(targetNick);
+        JMessageClient.enterSingleConversation(targetUserName);
+        mConv = JMessageClient.getSingleConversation(targetUserName);
+        if (mConv!=null){
+            List<Message> msgs = mConv.getAllMessage();
+            for (Message m:msgs){
+                Log.i(TAG,m.toString());
+            }
+            messages.addAll(msgs);
+            messageAdapter.notifyDataSetChanged();
+        }
     }
 
 
@@ -154,36 +268,30 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
 
     InputMethodManager imm = null;
 
-    @Click({R.id.id_chat_emoj,R.id.id_chat_send})
-    void onclick(View view) {
-        switch (view.getId()) {
-            case R.id.id_chat_emoj:
-                emojSwitch();
-                break;
-            case R.id.id_chat_send:
-                sendMessage();
-                break;
-        }
-    }
+
+
 
     void sendMessage(){
-        initConversation();
         Message sendMsg;
         if (mConv == null){
-            sendMsg = JMessageClient.createSingleTextMessage("Meshine",etMessage.getText().toString());
-        }else {
-            String msgContent = etMessage.getText().toString();
-            etMessage.setText("");
-            TextContent content = new TextContent(msgContent);
-             sendMsg = mConv.createSendMessage(content);
-
+            mConv = Conversation.createSingleConversation(targetUserName);
         }
 
-        messages.add(sendMsg);
+        String msgContent = etMessage.getText().toString();
+        etMessage.setText("");
+        TextContent content = new TextContent(msgContent);
+        sendMsg = mConv.createSendMessage(content);
+        JMessageClient.sendMessage(sendMsg);
 
+
+        showNewMessage(sendMsg);
+
+    }
+
+    void showNewMessage(Message msg){
+        messages.add(msg);
         messageAdapter.notifyDataSetChanged();
-        msgPanel.setSelection(messages.size()-1);
-
+        msgPanel.setSelection(messageAdapter.getCount()-1);
     }
 
 
@@ -245,5 +353,18 @@ public class ChatActivity extends FragmentActivity implements EmojiconGridFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.id_chat_emoj:
+                emojSwitch();
+                break;
+            case R.id.id_chat_send:
+                sendMessage();
+                break;
+        }
+
     }
 }
