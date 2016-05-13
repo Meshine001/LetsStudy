@@ -69,7 +69,7 @@ public class MyApplication extends Application {
         new NotificationClickEventReceiver(getApplicationContext());
 
         //百度地图
-        SDKInitializer.initialize(getApplicationContext());
+        //SDKInitializer.initialize(getApplicationContext());
     }
 
 }
