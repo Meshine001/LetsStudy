@@ -77,29 +77,7 @@ public class TabTwoFragment extends Fragment {
 
     void initData(){
 
-        //TODO
-       JMessageClient.getUserInfo("Meshine", new GetUserInfoCallback() {
-           @Override
-           public void gotResult(int status, String s, UserInfo userInfo) {
-               if (status == 0){
-                   Log.i(TAG,"获取UserInfo成功:\n"+userInfo);
-                   userInfos.add(userInfo);
-                   contactsAdapter.notifyDataSetChanged();
-               }
 
-           }
-       });
-        JMessageClient.getUserInfo("Meshine1", new GetUserInfoCallback() {
-            @Override
-            public void gotResult(int status, String s, UserInfo userInfo) {
-                if (status == 0){
-                    Log.i(TAG,"获取UserInfo成功:\n"+userInfo);
-                    userInfos.add(userInfo);
-                    contactsAdapter.notifyDataSetChanged();
-                }
-
-            }
-        });
     }
 
 

@@ -90,11 +90,11 @@ public class TabTreeFragment extends Fragment {
     }
 
     void initData(){
-        conversations.clear();
-        List<Conversation> conv = JMessageClient.getConversationList();
-        conversations.addAll(conv);
-        adapter.notifyDataSetChanged();
-        getContacts(JMessageClient.getMyInfo().getUserID());
+//        conversations.clear();
+//        List<Conversation> conv = JMessageClient.getConversationList();
+//        conversations.addAll(conv);
+//        adapter.notifyDataSetChanged();
+//        getContacts(JMessageClient.getMyInfo().getUserID());
     }
 
     @Background
