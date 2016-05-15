@@ -95,6 +95,8 @@ public class TabFourFragment extends Fragment {
 
     @Click({R.id.id_me_avatar, R.id.id_me_info_line, R.id.id_me_settings_line, R.id.id_me_exit_line})
     void onClick(View view) {
+        if (!checkSignIn())return;
+
         switch (view.getId()) {
             case R.id.id_me_avatar:
 //                pickAvatarDialog.show();
@@ -243,6 +245,17 @@ public class TabFourFragment extends Fragment {
                         PHOTO_REQUEST_TAKEPHOTO);
             }
         });
+    }
+
+    boolean checkSignIn(){
+        userInfo = JMessageClient.getMyInfo();
+        if (userInfo == null) {
+            Intent intent = new Intent(getContext(), LoginActivity_.class);
+            startActivity(intent);
+            return false;
+        }
+
+        return true;
     }
 
     void initUserInfo() {

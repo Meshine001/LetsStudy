@@ -1,10 +1,18 @@
 [
     {
-        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
-        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
     },
     {
-        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
-        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable/indicator_bg_top.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/drawable/indicator_bg_top.xml"
+    },
+    {
+        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable/indicator_bg_bottom.xml",
+        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/drawable/indicator_bg_bottom.xml"
     }
 ]

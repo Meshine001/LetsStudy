@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ScrollView
+        android:id="@+id/id_me_layout"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
@@ -22,7 +25,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_test_avater"
+                android:src="@drawable/test_u4"
                 app:civ_border_color="#ffffff"
                 app:civ_border_width="2dp" />
             <TextView
@@ -32,7 +35,7 @@
                 android:layout_below="@id/id_me_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="小明小明明小帅"
+                android:text="未登录"
                 android:textColor="@color/white"/>
             <LinearLayout
                 android:layout_below="@id/id_me_nickname"
@@ -43,21 +46,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="关注 2"
+                    android:text="关注 0"
                     android:textColor="@color/white"/>
                 <TextView
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="粉丝 1"
+                    android:text="粉丝 0"
                     android:textColor="@color/white"/>
                 <TextView
                     android:gravity="end"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="活动次数 100"
+                    android:text="活动次数 0"
                     android:textColor="@color/white"/>
 
             </LinearLayout>

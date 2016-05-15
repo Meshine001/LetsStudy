@@ -57,7 +57,17 @@ public class TabTwoFragment extends Fragment {
     }
 
     void initTopbar(){
+        topbar.setOnTopBarClickListener(new TopBarView.OnTopBarClickListener() {
+            @Override
+            public void onTopBarRightClick(View v) {
 
+            }
+
+            @Override
+            public void onTopBarLeftClick(View v) {
+
+            }
+        });
     }
 
     void initListView(){
