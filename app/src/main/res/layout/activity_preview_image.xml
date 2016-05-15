@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:id="@+id/id_preview_image_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/colorPrimary"
+        app:centerText="@string/preview_image"
+        app:isShowLeft="true"
+        app:isShowRight="true"
+        app:isShowWarn="false"
+        app:leftSrc="@drawable/ic_back"
+        app:rightSrc="@drawable/ic_delete" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_preview_image_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
+import com.meshine.letsstudyclient.application.MyApplication;
+import com.meshine.letsstudyclient.application.MyApplication_;
 import com.meshine.letsstudyclient.tools.AppManager;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -26,6 +28,7 @@ public class BaseActivity extends Activity {
 
 
     }
+
 
     @Override
     protected void onDestroy() {

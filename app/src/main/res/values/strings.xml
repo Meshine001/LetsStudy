@@ -14,9 +14,12 @@
 
     <string name="sign_up_new_user_str">注册新用户</string>
 
-    <string name="add_new_event">发起活动</string>
+    <string name="add_new_event">活动</string>
     <string name="add_event_details">活动详情</string>
     <string name="join_event">我要报名</string>
+
+
+    <string name="preview_image">预览</string>
 
 
 

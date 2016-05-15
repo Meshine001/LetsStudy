@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ConversationAdapter;
-import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -24,7 +23,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +46,6 @@ public class TabTreeFragment extends Fragment {
     List<Conversation> conversations = new ArrayList<>();
     ConversationAdapter adapter;
 
-    @RestService
-    MyRestClient netClient;
 
     @Nullable
     @Override
@@ -97,14 +93,6 @@ public class TabTreeFragment extends Fragment {
 //        getContacts(JMessageClient.getMyInfo().getUserID());
     }
 
-    @Background
-    void getContacts(long userId){
-        showContacts(netClient.getContacts(userId));
-    }
 
-    @UiThread
-    void showContacts(List<String> contacts){
-        Log.i(TAG,contacts.toString());
-    }
 
 }

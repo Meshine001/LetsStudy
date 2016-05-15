@@ -12,6 +12,14 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/ic_back"/>
+    <TextView
+        android:id="@+id/tv_top_bar_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_top_bar_left"
+        android:layout_centerVertical="true"
+        android:textSize="18sp"
+        android:text=""/>
 
     <TextView
         android:id="@+id/tv_top_bar_title"

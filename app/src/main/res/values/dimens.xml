@@ -48,4 +48,5 @@
 
     <dimen name="chat_emoj_icons_height">230dp</dimen>
 
+    <dimen name="new_event_iv_size">60dp</dimen>
 </resources>

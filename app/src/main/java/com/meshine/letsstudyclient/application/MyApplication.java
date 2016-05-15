@@ -57,6 +57,7 @@ public class MyApplication extends Application {
     public static final String DELETE_MODE = "deleteMode";
     public static final String MEMBERS_COUNT = "membersCount";
 
+
     @Override
     public void onCreate() {
         super.onCreate();

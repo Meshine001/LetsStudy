@@ -99,6 +99,7 @@
         <activity android:name=".NewEventActivity_" />
         <activity android:name=".EventsActivity_" />
         <activity android:name=".LetsRunActivity_"/>
+        <activity android:name=".PreViewImageActivity_"/>
 
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"

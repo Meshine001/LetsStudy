@@ -1,34 +1,18 @@
 [
     {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
+        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
+        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
     },
     {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/anim/slide_in_from_bottom.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/anim/slide_in_from_bottom.xml"
+        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
+        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
     },
     {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
     },
     {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/anim/slide_out_to_top.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/anim/slide_out_to_top.xml"
-    },
-    {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/anim/slide_out_to_bottom.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/anim/slide_out_to_bottom.xml"
-    },
-    {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
-    },
-    {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
-    },
-    {
-        "merged": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/res/merged/androidTest/debug/anim/slide_in_from_top.xml",
-        "source": "/Users/meshine/Documents/LetsStudy/LetsStudyClient/LetsStudy/PullToRefresh/build/intermediates/bundles/debug/res/anim/slide_in_from_top.xml"
+        "merged": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "E:\\WorkSpace\\LetsStudy\\LetsStudyClient\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
     }
 ]

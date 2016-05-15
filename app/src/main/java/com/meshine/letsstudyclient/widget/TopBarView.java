@@ -22,6 +22,10 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
     @Bind(R.id.iv_top_bar_left)
     ImageView mLeftIv;
 
+    // 右边文本
+    @Bind(R.id.tv_top_bar_left)
+    TextView mLeftTv;
+
     // 标题
     @Bind(R.id.tv_top_bar_title)
     TextView mTitleTv;
@@ -41,6 +45,7 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
     private Context mContext;
 
     private int leftSrc;
+    private String leftText;
     private String centerText;
     private String rightText;
     private int rightSrc;
@@ -50,8 +55,10 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
     private boolean isShowRight;
     private boolean isBack;
 
+    private float leftTextSize;
     private float centerTextSize;
     private float rightTextSize;
+    private int leftTextColor;
     private int centerTextColor;
     private int rightTextColor;
 
@@ -76,6 +83,7 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
         this.mContext = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TopBar);
         leftSrc = ta.getResourceId(R.styleable.TopBar_leftSrc, R.mipmap.ic_launcher);
+        leftText = ta.getString(R.styleable.TopBar_leftText);
         centerText = ta.getString(R.styleable.TopBar_centerText);
         rightText = ta.getString(R.styleable.TopBar_rightText);
         rightSrc = ta.getResourceId(R.styleable.TopBar_rightSrc, R.mipmap.ic_launcher);
@@ -84,8 +92,10 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
         isShowLeft = ta.getBoolean(R.styleable.TopBar_isShowLeft, false);
         isShowRight = ta.getBoolean(R.styleable.TopBar_isShowRight, false);
         isBack = ta.getBoolean(R.styleable.TopBar_isBack, false);
+        leftTextSize = ta.getDimension(R.styleable.TopBar_leftTextSize, 15);
         centerTextSize = ta.getDimension(R.styleable.TopBar_centerTextSize, 15);
         rightTextSize = ta.getDimension(R.styleable.TopBar_rightTextSize, 15);
+        leftTextColor = ta.getColor(R.styleable.TopBar_leftTextColor, getResources().getColor(android.R.color.white));
         centerTextColor = ta.getColor(R.styleable.TopBar_centerTextColor, getResources().getColor(android.R.color.white));
         rightTextColor = ta.getColor(R.styleable.TopBar_rightTextColor, getResources().getColor(android.R.color.white));
 
@@ -118,6 +128,10 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
         if (isShowLeft) {
             mLeftIv.setVisibility(View.VISIBLE);
             mLeftIv.setImageResource(leftSrc);
+            mLeftTv.setVisibility(View.VISIBLE);
+            mLeftTv.setTextSize(leftTextSize);
+            mLeftTv.setTextColor(leftTextColor);
+            mLeftTv.setText(leftText);
         } else {
             mLeftIv.setVisibility(View.INVISIBLE);
         }
@@ -197,6 +211,10 @@ public class TopBarView extends RelativeLayout implements View.OnClickListener {
 
     public void setTilte(String title){
         this.mTitleTv.setText(title);
+    }
+
+    public void setLeftText(String s){
+        this.mLeftTv.setText(s);
     }
 
 }
