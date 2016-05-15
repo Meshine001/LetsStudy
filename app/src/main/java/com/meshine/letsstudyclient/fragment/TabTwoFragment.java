@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
+import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.CommonUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -29,8 +30,10 @@ import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,9 +170,17 @@ public class TabTwoFragment extends BaseFragment {
         });
     }
 
+    @RestService
+    MyRestClient httpClient;
+
     void initData(){
+        getContacts("danami");
+    }
 
-
+    @Background
+    void getContacts(String username){
+        String response = httpClient.getContacts(username);
+        System.out.println(response);
     }
 
 
