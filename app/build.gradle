@@ -54,6 +54,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(':multi-image-selector')
     compile 'com.github.citux:datetimepicker:0.2.0'
+    compile 'com.orhanobut:dialogplus:1.11@aar'
 }
 
 apt {

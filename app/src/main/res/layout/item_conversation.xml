@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:orientation="horizontal">
     <com.meshine.letsstudyclient.widget.CircleImageView
+        android:layout_margin="10dp"
+        android:layout_gravity="center_vertical"
         android:id="@+id/id_item_conv_avatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/chat_avatar_size"
+        android:layout_height="@dimen/chat_avatar_size"
         android:src="@drawable/test_u2"/>
-    <LinearLayout
+    <RelativeLayout
+        android:padding="5dp"
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/chat_avatar_size">
         <com.rockerhieu.emojicon.EmojiconTextView
+            android:layout_alignParentTop="true"
             android:id="@+id/id_item_conv_nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
             android:text="Nick"/>
         <com.rockerhieu.emojicon.EmojiconTextView
+            android:layout_alignParentBottom="true"
             android:id="@+id/id_item_conv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="content"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

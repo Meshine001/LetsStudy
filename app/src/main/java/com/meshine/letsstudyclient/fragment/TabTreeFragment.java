@@ -35,7 +35,7 @@ import cn.jpush.im.android.api.model.UserInfo;
  * Created by Ming on 2016/4/24.
  */
 @EFragment(R.layout.fragment_tab_tree)
-public class TabTreeFragment extends Fragment {
+public class TabTreeFragment extends BaseFragment {
 
     private static final String TAG = TabTreeFragment.class.getName();
     @ViewById(R.id.id_conversation_topbar)
@@ -86,11 +86,10 @@ public class TabTreeFragment extends Fragment {
     }
 
     void initData(){
-//        conversations.clear();
-//        List<Conversation> conv = JMessageClient.getConversationList();
-//        conversations.addAll(conv);
-//        adapter.notifyDataSetChanged();
-//        getContacts(JMessageClient.getMyInfo().getUserID());
+        conversations.clear();
+        List<Conversation> conv = JMessageClient.getConversationList();
+        conversations.addAll(conv);
+        adapter.notifyDataSetChanged();
     }
 
 

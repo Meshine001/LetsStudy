@@ -12,11 +12,14 @@ import cn.jpush.im.android.api.model.UserInfo;
  * Created by Ming on 2016/5/8.
  */
 public class BaseFragment extends Fragment {
-    public boolean isLogIn(){
 
-        UserInfo userInfo = JMessageClient.getMyInfo();
-
-        if (userInfo == null)return false;
+    public boolean checkSignIn(){
+        UserInfo info = JMessageClient.getMyInfo();
+        if (info == null) {
+            Intent intent = new Intent(getContext(), LoginActivity_.class);
+            startActivity(intent);
+            return false;
+        }
 
         return true;
     }

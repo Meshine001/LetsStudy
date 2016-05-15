@@ -2,6 +2,7 @@ package com.meshine.letsstudyclient;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
@@ -10,6 +11,7 @@ import com.meshine.letsstudyclient.application.MyApplication_;
 import com.meshine.letsstudyclient.tools.AppManager;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 
 /**
@@ -56,6 +58,16 @@ public class BaseActivity extends Activity {
 
     }
 
+    public boolean checkSignIn(){
+        UserInfo info = JMessageClient.getMyInfo();
+        if (info == null) {
+            Intent intent = new Intent(this, LoginActivity_.class);
+            startActivity(intent);
+            return false;
+        }
+
+        return true;
+    }
 
 
     public void progressDialogShow(){

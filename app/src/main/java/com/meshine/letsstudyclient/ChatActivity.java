@@ -100,8 +100,8 @@ public class ChatActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         JMessageClient.registerEventReceiver(this);
-        initViews();
         initExtras();
+        initViews();
         initComponent();
     }
 
@@ -135,6 +135,7 @@ public class ChatActivity extends FragmentActivity implements View.OnClickListen
                 finish();
             }
         });
+        topbar.setTilte(targetNick);
 
         etMessage = (EmojiconEditText) findViewById(R.id.id_chat_et_message);
         etMessage.setOnClickListener(this);
@@ -205,9 +206,11 @@ public class ChatActivity extends FragmentActivity implements View.OnClickListen
     }
 
     void initConversation(){
-        topbar.setTilte(targetNick);
+
         JMessageClient.enterSingleConversation(targetUserName);
+
         mConv = JMessageClient.getSingleConversation(targetUserName);
+
         if (mConv!=null){
             List<Message> msgs = mConv.getAllMessage();
             for (Message m:msgs){

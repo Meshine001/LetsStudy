@@ -175,21 +175,21 @@ public class TabOneFragment extends BaseFragment {
                 "2",
                 "男女不限",
                 "2016-05-12",
-                "来几个漂亮的妹子，一起搞学术。","HUO"));
+                "来几个漂亮的妹子，一起搞学术。", "HUO"));
         recommendEvents.add(new Event("http://cdn.duitang.com/uploads/item/201407/01/20140701090724_FFTZS.jpeg",
                 "啊萌",
                 "星期二一起跑步",
                 "2",
                 "女生",
                 "2016-05-14",
-                "不喜欢和不帅的男生一起跑步，美女们约跑不。","HUO"));
+                "不喜欢和不帅的男生一起跑步，美女们约跑不。", "HUO"));
         recommendEvents.add(new Event("http://cdnq.duitang.com/uploads/item/201408/23/20140823154838_w4YCe.png",
                 "黄小鸭",
                 "谁一起去吃个饭啊",
                 "2",
                 "男生",
                 "2016-05-14",
-                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！","HUO"));
+                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！", "HUO"));
         eventAdapter.notifyDataSetChanged();
     }
 
@@ -217,15 +217,14 @@ public class TabOneFragment extends BaseFragment {
             R.id.id_square_menu_lets_report,
             R.id.id_square_menu_lets_others})
     void onClick(View view) {
+        Intent intent = null;
         switch (view.getId()) {
             //新活动
             case R.id.id_square_new_event:
-                if (isLogIn()) {
-                    Intent intent = new Intent(getContext(), NewEventActivity_.class);
-                    startActivity(intent);
-                } else {
-                    logIn();
-                }
+                if (!checkSignIn()) return;
+                intent = new Intent(getContext(), NewEventActivity_.class);
+                startActivity(intent);
+
                 break;
             //最新活动
             case R.id.id_square_menu_newest:
@@ -248,7 +247,7 @@ public class TabOneFragment extends BaseFragment {
                 break;
             //约跑
             case R.id.id_square_menu_lets_run:
-                Intent intent = new Intent(getContext(), LetsRunActivity_.class);
+                intent = new Intent(getContext(), LetsRunActivity_.class);
                 startActivity(intent);
                 break;
             //约自习
