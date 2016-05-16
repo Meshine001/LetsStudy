@@ -14,6 +14,8 @@ import com.meshine.letsstudyclient.EventDetailsActivity_;
 import com.meshine.letsstudyclient.LetsRunActivity_;
 import com.meshine.letsstudyclient.NewEventActivity_;
 import com.meshine.letsstudyclient.R;
+import com.meshine.letsstudyclient.RankActivity;
+import com.meshine.letsstudyclient.RankActivity_;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
 import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.bean.SquareInfo;
@@ -238,6 +240,9 @@ public class TabOneFragment extends BaseFragment {
                 break;
             //达人榜
             case R.id.id_square_menu_rank:
+                intent = new Intent(getContext(), RankActivity_.class);
+                startActivity(intent);
+
                 break;
             //我的活动
             case R.id.id_square_menu_my:

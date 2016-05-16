@@ -26,14 +26,6 @@ android {
         exclude 'META-INF/notice.txt'
     }
 
-    task copyJniLibs(type: Copy) {
-        from 'libs/armeabi'
-        into 'src/main/jniLibs/'
-    }
-    tasks.withType(JavaCompile) {
-        compileTask -> compileTask.dependsOn(copyJniLibs)
-    }
-    clean.dependsOn 'cleanCopyJniLibs'
 }
 
 
