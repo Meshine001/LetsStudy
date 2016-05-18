@@ -67,6 +67,16 @@
     <!--允许应用程序更改主屏幕中的设置和快捷方式-->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <!--Tecent Cloud -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".application.MyApplication_"
         android:allowBackup="true"
@@ -98,9 +108,9 @@
         <activity android:name=".EventDetailsActivity_" />
         <activity android:name=".NewEventActivity_" />
         <activity android:name=".EventsActivity_" />
-        <activity android:name=".LetsRunActivity_"/>
-        <activity android:name=".PreViewImageActivity_"/>
-        <activity android:name=".RankActivity_"/>
+        <activity android:name=".LetsRunActivity_" />
+        <activity android:name=".PreViewImageActivity_" />
+        <activity android:name=".RankActivity_" />
 
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"

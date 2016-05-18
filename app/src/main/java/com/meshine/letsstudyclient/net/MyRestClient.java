@@ -23,13 +23,15 @@ import org.springframework.web.client.RestClientException;
 @Rest(rootUrl = NetInfo.ROOT_URL,converters = {FormHttpMessageConverter.class,MappingJackson2HttpMessageConverter.class,StringHttpMessageConverter.class})
 public interface MyRestClient extends RestClientHeaders{
 
-    @Get("contacts.get&username={username}")
+    @Get("?contacts.get&username={username}")
     String getContacts(@Path String username) throws RestClientException;
 
-    @Get("contacts.add&username={username}&contacts={contacts}")
+    @Get("?contacts.add&username={username}&contacts={contacts}")
     String addContacts(@Path String username,@Path String contacts) throws RestClientException;
 
-    @Post("event.add")
-    @RequiresHeader(HttpHeaders.CONTENT_TYPE)
-    String addEvent(@Body MultiValueMap<String,Object> formData) throws RestClientException;
+    @Post("?event.add")
+    String addEvent(@Field String data) throws RestClientException;
+
+    @Get("auth/tencent?type={type}")
+    String getTencentAuth(@Path String type) throws RestClientException;
 }

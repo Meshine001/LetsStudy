@@ -1,10 +1,10 @@
 package com.meshine.letsstudyclient;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +15,17 @@ import android.widget.TextView;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
-import com.meshine.letsstudyclient.BaseActivity;
+import com.baidu.trace.T;
 import com.meshine.letsstudyclient.net.MyRestClient;
-import com.meshine.letsstudyclient.net.NetInfo;
+import com.meshine.letsstudyclient.net.TencentCloud;
+import com.meshine.letsstudyclient.tools.CommonUtil;
 import com.meshine.letsstudyclient.widget.NiceSpinner;
+import com.tencent.upload.Const;
+import com.tencent.upload.UploadManager;
+import com.tencent.upload.task.ITask;
+import com.tencent.upload.task.IUploadTaskListener;
+import com.tencent.upload.task.data.FileInfo;
+import com.tencent.upload.task.impl.PhotoUploadTask;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -27,15 +34,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.DrawableRes;
 import org.androidannotations.rest.spring.annotations.RestService;
-import org.androidannotations.rest.spring.api.MediaType;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -43,11 +44,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import cn.jpush.im.android.api.JMessageClient;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -158,31 +157,165 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
                 DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show(getFragmentManager(), "datePicker");
                 break;
             case R.id.id_new_event_submit:
-                try {
-                    JSONObject jo = new JSONObject();
-                    jo.put("userId",10000);
-                    newEvent(picPaths,jo);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+//                if (validateForm()) {
+//                    getTencentAuth("upload");
+//                }
+                getTencentAuth("upload");
+
                 break;
         }
     }
 
+    private static final int UPLOAD_SUCCESS = 0;
+    private static final int UPLOAD_FAILED = 1;
+
+    private List<String> remotePics = new ArrayList<>();
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UPLOAD_SUCCESS:
+                    if (remotePics.size() == picPaths.size()) {
+                        CommonUtil.showToast(getBaseContext(), "图片上传成功!");
+                        //addEvent(generateEventJson());
+                    }
+                    break;
+                case UPLOAD_FAILED:
+                    CommonUtil.showToast(getBaseContext(), "图片上传失败!");
+                    CommonUtil.showToast(getBaseContext(), "发起活动失败!");
+                    break;
+            }
+        }
+    };
+
+    @Background
+    void getTencentAuth(String type){
+        String response = httpClient.getTencentAuth(type);
+        Log.i(TAG,response);
+        uploadPics(response);
+    }
+
+    @UiThread
+    void uploadPics(String auth) {
+        remotePics.clear();
+        UploadManager picUploader = new UploadManager(this, TencentCloud.APPID, Const.FileType.Photo, null);
+        for (String path : picPaths) {
+            PhotoUploadTask task = new PhotoUploadTask(path, new IUploadTaskListener() {
+
+                @Override
+                public void onUploadSucceed(FileInfo result) {
+                    Log.i(TAG, "upload succeed: " + result.url);
+                    remotePics.add(result.url);
+                    Message msg = new Message();
+                    msg.what = UPLOAD_SUCCESS;
+                    handler.sendMessage(msg);
+                }
+
+                @Override
+                public void onUploadFailed(int errorCode, String errorMsg) {
+                    Log.i(TAG, "上传结果:失败! ret:" + errorCode + " msg:" + errorMsg);
+                    remotePics.clear();
+                    Message msg = new Message();
+                    msg.what = UPLOAD_FAILED;
+                    handler.sendMessage(msg);
+                }
+
+                @Override
+                public void onUploadProgress(long totalSize, long sendSize) {
+                    long p = (long) ((sendSize * 100) / (totalSize * 1.0f));
+                    Log.i(TAG, "上传进度: " + p + "%");
+                }
+
+                @Override
+                public void onUploadStateChange(ITask.TaskState taskState) {
+
+                }
+            });
+            task.setBucket(TencentCloud.BUCKET );
+            task.setAuth(auth);
+            picUploader.upload(task);
+
+        }
+
+    }
+
+    boolean validateForm() {
+        if (etTile.getText().toString().trim().equals("")) {
+            CommonUtil.showToast(this, "请填写标题!");
+            return false;
+        }
+
+        if (etCount.getText().toString().trim().equals("")) {
+            if (Integer.parseInt(etCount.getText().toString().trim()) < 2) {
+                CommonUtil.showToast(this, "人数不能少于2人!");
+                return false;
+            }
+            CommonUtil.showToast(this, "请设置人数!");
+
+            return false;
+        }
+
+        if (tvDateTime.getText().toString().trim().equals("点击设置")) {
+            CommonUtil.showToast(this, "请设置活动时间!");
+            return false;
+        }
+
+        if (tvEndTime.getText().toString().trim().equals("点击设置")) {
+            CommonUtil.showToast(this, "请设置报名截止时间!");
+            return false;
+        }
+
+        if (etPlace.getText().toString().trim().equals("")) {
+            CommonUtil.showToast(this, "请填写活动地点!");
+            return false;
+        }
+        if (etDetails.getText().toString().trim().equals("")) {
+            CommonUtil.showToast(this, "请填写活动描述!");
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    /**
+     * 生产表单数据
+     *
+     * @return
+     * @throws JSONException
+     */
+    JSONObject generateEventJson() {
+        try {
+            JSONObject jo = new JSONObject();
+            jo.put("eventType", nsType.getSelectedIndex());
+            jo.put("title", etPlace.getText().toString());
+            jo.put("count", etCount.getText().toString());
+            jo.put("dateTime", tvDateTime.getText().toString());
+            jo.put("endTime", tvEndTime.getText().toString());
+            jo.put("place", etPlace.getText().toString());
+            jo.put("details", etDetails.getText().toString());
+            jo.put("userId", JMessageClient.getMyInfo().getUserID());
+            for (int i = 1; i <= remotePics.size(); i++) {
+                jo.put("pic" + i, remotePics.get(i - 1));
+            }
+            return jo;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
 
     @Background
-    void newEvent(List<String> picPaths,JSONObject jo) {
+    void addEvent(JSONObject jo) {
         try {
-            MultiValueMap<String,Object>  formData = new LinkedMultiValueMap<>();
-            for (String path:picPaths){
-                FileSystemResource file = new FileSystemResource(path);
-                formData.add("file[]",file);
-            }
-            formData.set("data",jo.toString());
-            httpClient.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA);
-            String response = httpClient.addEvent(formData);
-            System.out.println(response);
+            String response = httpClient.addEvent(jo.toString());
+            Log.i(TAG, response);
+            parseResponse(response);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,8 +323,15 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
     }
 
     @UiThread
-    void addEventResponse(JSONObject data) {
-
+    void parseResponse(String response) {
+        try {
+            JSONObject resp = new JSONObject(response);
+            //do some thing...
+            CommonUtil.showToast(this, "发起活动成功");
+        } catch (Exception e) {
+//            e.printStackTrace();
+            CommonUtil.showToast(this, "发起活动失败");
+        }
     }
 
 

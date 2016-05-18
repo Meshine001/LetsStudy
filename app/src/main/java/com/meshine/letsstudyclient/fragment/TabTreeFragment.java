@@ -89,8 +89,11 @@ public class TabTreeFragment extends BaseFragment {
         if (!checkSignIn(false))return;
         conversations.clear();
         List<Conversation> conv = JMessageClient.getConversationList();
-        conversations.addAll(conv);
-        adapter.notifyDataSetChanged();
+        if (conv!=null){
+            conversations.addAll(conv);
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
 
