@@ -223,7 +223,7 @@ public class TabOneFragment extends BaseFragment {
         switch (view.getId()) {
             //新活动
             case R.id.id_square_new_event:
-                if (!checkSignIn()) return;
+                if (!checkSignIn(true)) return;
                 intent = new Intent(getContext(), NewEventActivity_.class);
                 startActivity(intent);
 

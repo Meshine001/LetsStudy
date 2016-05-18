@@ -13,16 +13,25 @@ import cn.jpush.im.android.api.model.UserInfo;
  */
 public class BaseFragment extends Fragment {
 
-    public boolean checkSignIn(){
+    /**
+     * 检查是否已经登录
+     * @param trans 如果没有登录，是否跳转
+     * @return
+     */
+    public boolean checkSignIn(boolean trans){
         UserInfo info = JMessageClient.getMyInfo();
         if (info == null) {
-            Intent intent = new Intent(getContext(), LoginActivity_.class);
-            startActivity(intent);
+            if (trans){
+                Intent intent = new Intent(getContext(), LoginActivity_.class);
+                startActivity(intent);
+            }
+
             return false;
         }
-
         return true;
     }
+
+
 
     public void logIn(){
         Intent intent = new Intent(getContext(), LoginActivity_.class);

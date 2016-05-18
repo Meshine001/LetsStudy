@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.meshine.letsstudyclient.application.MyApplication;
 import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.MyPrefs_;
@@ -127,6 +128,7 @@ public class LoginActivity extends BaseActivity {
     void goMain(){
 //        Intent intent = new Intent(LoginActivity.this,MainActivity_.class);
 //        startActivity(intent);
+        MyApplication.isLogin = true;
         finish();
     }
 }

@@ -5,6 +5,6 @@ package com.meshine.letsstudyclient.net;
  */
 public class NetInfo {
    // public static final String ROOT_URL = "http://192.168.0.115";
-   //public static final String ROOT_URL = "http://192.168.1.101/lets/?";
-    public static final String ROOT_URL = "http://lets.is-best.net/";
+   public static final String ROOT_URL = "http://192.168.1.101/lets/?";
+   // public static final String ROOT_URL = "http://lets.is-best.net/";
 }

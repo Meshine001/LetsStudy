@@ -21,6 +21,7 @@ import com.meshine.letsstudyclient.MyInfoActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.SettingsActivity;
 import com.meshine.letsstudyclient.SettingsActivity_;
+import com.meshine.letsstudyclient.application.MyApplication;
 import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.FileUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
@@ -38,6 +39,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.File;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
@@ -90,7 +93,10 @@ public class TabFourFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //initUserInfo();
+        if (MyApplication.isLogin){
+            initUserInfo();
+        }
+
     }
 
     @Click({R.id.id_me_avatar, R.id.id_me_info_line, R.id.id_me_settings_line, R.id.id_me_exit_line})
@@ -287,5 +293,6 @@ public class TabFourFragment extends Fragment {
 
 
     }
+
 
 }
