@@ -32,6 +32,7 @@ public interface MyRestClient extends RestClientHeaders{
     @Post("?event.add")
     String addEvent(@Field String data) throws RestClientException;
 
-    @Get("auth/tencent?type={type}")
-    String getTencentAuth(@Path String type) throws RestClientException;
+    @Post("?file.upload")
+    @RequiresHeader(HttpHeaders.CONTENT_TYPE)
+    String uploadFile(@Body MultiValueMap<String, Object> data) throws RestClientException;
 }

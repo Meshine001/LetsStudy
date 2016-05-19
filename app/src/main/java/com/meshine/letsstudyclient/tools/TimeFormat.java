@@ -138,4 +138,6 @@ public class TimeFormat {
             return date3 + " " + mContext.getString(R.string.night) + date;
         }
     }
+
+    public static int getTimeStamp(String timeSte)
 }

@@ -1,10 +1,9 @@
 package com.meshine.letsstudyclient;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,17 +14,14 @@ import android.widget.TextView;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
-import com.baidu.trace.T;
+import com.bumptech.glide.Glide;
 import com.meshine.letsstudyclient.net.MyRestClient;
-import com.meshine.letsstudyclient.net.TencentCloud;
+import com.meshine.letsstudyclient.tools.AppManager;
+import com.meshine.letsstudyclient.tools.BitmapUtil;
 import com.meshine.letsstudyclient.tools.CommonUtil;
+import com.meshine.letsstudyclient.tools.JSONUtil;
 import com.meshine.letsstudyclient.widget.NiceSpinner;
-import com.tencent.upload.Const;
-import com.tencent.upload.UploadManager;
-import com.tencent.upload.task.ITask;
-import com.tencent.upload.task.IUploadTaskListener;
-import com.tencent.upload.task.data.FileInfo;
-import com.tencent.upload.task.impl.PhotoUploadTask;
+import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -35,8 +31,15 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -60,6 +63,9 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
     public static final int REQUEST_IMAGE = 0x1000;
     public static final int REQUEST__PRE_IMAGE = 0x1100;
+
+    @ViewById(R.id.id_new_event_topbar)
+    TopBarView topbar;
 
     @ViewById(R.id.id_new_event_pic1)
     ImageView pic1;
@@ -93,6 +99,8 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
     boolean[] picStates = {false, false, false, false};
 
+    List<String> remotePics = new ArrayList<>();
+
     @RestService
     MyRestClient httpClient;
 
@@ -107,9 +115,25 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
     @AfterViews
     void init() {
+        initTopbar();
         initPicsLayout();
         initSpinner();
         initCalendar();
+    }
+
+    @Override
+    public void initTopbar() {
+        topbar.setOnTopBarClickListener(new TopBarView.OnTopBarClickListener() {
+            @Override
+            public void onTopBarRightClick(View v) {
+
+            }
+
+            @Override
+            public void onTopBarLeftClick(View v) {
+                AppManager.getAppManager().finishActivity();
+            }
+        });
     }
 
     void initSpinner() {
@@ -158,85 +182,58 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
                 break;
             case R.id.id_new_event_submit:
 
-//                if (validateForm()) {
-//                    getTencentAuth("upload");
-//                }
-                getTencentAuth("upload");
-
+                if (validateForm()) {
+                   uploadPics();
+                }
+               // uploadPics();
                 break;
         }
     }
 
-    private static final int UPLOAD_SUCCESS = 0;
-    private static final int UPLOAD_FAILED = 1;
 
-    private List<String> remotePics = new ArrayList<>();
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case UPLOAD_SUCCESS:
-                    if (remotePics.size() == picPaths.size()) {
-                        CommonUtil.showToast(getBaseContext(), "图片上传成功!");
-                        //addEvent(generateEventJson());
-                    }
-                    break;
-                case UPLOAD_FAILED:
-                    CommonUtil.showToast(getBaseContext(), "图片上传失败!");
-                    CommonUtil.showToast(getBaseContext(), "发起活动失败!");
-                    break;
-            }
-        }
-    };
+
 
     @Background
-    void getTencentAuth(String type){
-        String response = httpClient.getTencentAuth(type);
-        Log.i(TAG,response);
-        uploadPics(response);
+    void uploadPics() {
+        remotePics.clear();
+        if (picPaths.size() == 0){
+            addEvent();
+            return;
+        }
+        try {
+            MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
+
+            for (String path : picPaths){
+                FileSystemResource image = new FileSystemResource(path);
+                data.add("file[]",image);
+            }
+            httpClient.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE);
+            String response = httpClient.uploadFile(data);
+            afterUpload(response);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            CommonUtil.showToast(this,"网络请求失败");
+        }
     }
 
     @UiThread
-    void uploadPics(String auth) {
-        remotePics.clear();
-        UploadManager picUploader = new UploadManager(this, TencentCloud.APPID, Const.FileType.Photo, null);
-        for (String path : picPaths) {
-            PhotoUploadTask task = new PhotoUploadTask(path, new IUploadTaskListener() {
-
-                @Override
-                public void onUploadSucceed(FileInfo result) {
-                    Log.i(TAG, "upload succeed: " + result.url);
-                    remotePics.add(result.url);
-                    Message msg = new Message();
-                    msg.what = UPLOAD_SUCCESS;
-                    handler.sendMessage(msg);
+    void afterUpload(String response){
+        try {
+            JSONObject jo = new JSONObject(response);
+            if (0 == JSONUtil.getInt(jo,"code")){
+                Log.i(TAG,jo.toString());
+                JSONArray ja = JSONUtil.getJSONArray(jo,"data");
+                Log.i(TAG,ja.toString());
+                for (int i=0;i<ja.length();i++){
+                    remotePics.add(ja.getString(i));
                 }
-
-                @Override
-                public void onUploadFailed(int errorCode, String errorMsg) {
-                    Log.i(TAG, "上传结果:失败! ret:" + errorCode + " msg:" + errorMsg);
-                    remotePics.clear();
-                    Message msg = new Message();
-                    msg.what = UPLOAD_FAILED;
-                    handler.sendMessage(msg);
-                }
-
-                @Override
-                public void onUploadProgress(long totalSize, long sendSize) {
-                    long p = (long) ((sendSize * 100) / (totalSize * 1.0f));
-                    Log.i(TAG, "上传进度: " + p + "%");
-                }
-
-                @Override
-                public void onUploadStateChange(ITask.TaskState taskState) {
-
-                }
-            });
-            task.setBucket(TencentCloud.BUCKET );
-            task.setAuth(auth);
-            picUploader.upload(task);
-
+                addEvent();
+            }else {
+                CommonUtil.showToast(this,JSONUtil.getString(jo,"message"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
@@ -298,8 +295,10 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             jo.put("place", etPlace.getText().toString());
             jo.put("details", etDetails.getText().toString());
             jo.put("userId", JMessageClient.getMyInfo().getUserID());
-            for (int i = 1; i <= remotePics.size(); i++) {
-                jo.put("pic" + i, remotePics.get(i - 1));
+            if (remotePics.size() > 0){
+                for (int i = 1; i <= remotePics.size(); i++) {
+                    jo.put("pic" + i, remotePics.get(i - 1));
+                }
             }
             return jo;
         } catch (JSONException e) {
@@ -311,9 +310,9 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
 
     @Background
-    void addEvent(JSONObject jo) {
+    void addEvent() {
         try {
-            String response = httpClient.addEvent(jo.toString());
+            String response = httpClient.addEvent(generateEventJson().toString());
             Log.i(TAG, response);
             parseResponse(response);
         } catch (Exception e) {
@@ -325,9 +324,16 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
     @UiThread
     void parseResponse(String response) {
         try {
-            JSONObject resp = new JSONObject(response);
-            //do some thing...
-            CommonUtil.showToast(this, "发起活动成功");
+            JSONObject jo = new JSONObject(response);
+            if (0==JSONUtil.getInt(jo,"code")){
+                CommonUtil.showToast(this, "发起活动成功");
+                Intent intent = new Intent(NewEventActivity.this,MyEventActivity_.class);
+                startActivity(intent);
+                AppManager.getAppManager().finishActivity();
+            }else {
+                CommonUtil.showToast(this, "发起活动失败");
+            }
+
         } catch (Exception e) {
 //            e.printStackTrace();
             CommonUtil.showToast(this, "发起活动失败");
@@ -370,9 +376,12 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             // Get the result list of select image paths
             List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             // do your logic ....
-            picPaths.addAll(path);
+
             for (String s : path) {
-                Log.i(TAG, s);
+                Log.i(TAG, "压缩图片"+s);
+                Bitmap bmp = BitmapUtil.getimage(s);
+                String p = BitmapUtil.saveBitmap(bmp);
+                picPaths.add(p);
             }
             updatePics();
         }
