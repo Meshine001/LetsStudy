@@ -26,8 +26,8 @@ public interface MyRestClient extends RestClientHeaders{
     @Get("?contacts.get&username={username}")
     String getContacts(@Path String username) throws RestClientException;
 
-    @Get("?contacts.add&username={username}&contacts={contacts}")
-    String addContacts(@Path String username,@Path String contacts) throws RestClientException;
+    @Post("?contacts.add")
+    String addContacts(@Field String username,@Field String contacts) throws RestClientException;
 
     @Post("?event.add")
     String addEvent(@Field String data) throws RestClientException;

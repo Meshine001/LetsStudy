@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
@@ -25,10 +21,12 @@ import com.meshine.letsstudyclient.application.MyApplication;
 import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.CommonUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
+import com.meshine.letsstudyclient.tools.JSONUtil;
 import com.meshine.letsstudyclient.widget.TopBarView;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ViewHolder;
+
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -61,6 +59,7 @@ public class TabTwoFragment extends BaseFragment {
 
     @ViewById(R.id.id_contacts_topbar)
     TopBarView topbar;
+
 
 
     @Nullable
@@ -139,7 +138,7 @@ public class TabTwoFragment extends BaseFragment {
             switch (msg.what) {
                 case MESSAGE_USER_INFO:
                     UserInfo info = (UserInfo) msg.obj;
-                    addContacts2Server(JMessageClient.getMyInfo().getUserName(), info.getUserName());
+                    addContacts2Server(JMessageClient.getMyInfo().getUserName(),info.getUserName());
                     break;
             }
         }
@@ -207,7 +206,7 @@ public class TabTwoFragment extends BaseFragment {
     @UiThread
     void parseContacts(String response) {
         try {
-            JSONArray ja = new JSONArray(response);
+            JSONArray ja = JSONUtil.getJSONArray(new JSONObject(response),"data");
 
             userInfos.clear();
 
@@ -229,13 +228,12 @@ public class TabTwoFragment extends BaseFragment {
     }
 
     /**
-     * 添加新联系人到服务器
      *
      * @param username
      * @param contacts
      */
     @Background
-    void addContacts2Server(String username, String contacts) {
+    void addContacts2Server(String username,String contacts) {
         String response = httpClient.addContacts(username, contacts);
         parseContacts(response);
     }

@@ -20,6 +20,7 @@ import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.BitmapUtil;
 import com.meshine.letsstudyclient.tools.CommonUtil;
 import com.meshine.letsstudyclient.tools.JSONUtil;
+import com.meshine.letsstudyclient.tools.TimeFormat;
 import com.meshine.letsstudyclient.widget.NiceSpinner;
 import com.meshine.letsstudyclient.widget.TopBarView;
 
@@ -145,8 +146,8 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
     void initCalendar() {
         calendar = Calendar.getInstance();
-        dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
-        timeFormat = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.CHINA);
+        timeFormat = new SimpleDateFormat(TIME_PATTERN, Locale.CHINA);
     }
 
     @Click({R.id.id_new_event_pic1,
@@ -290,8 +291,8 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             jo.put("eventType", nsType.getSelectedIndex());
             jo.put("title", etPlace.getText().toString());
             jo.put("count", etCount.getText().toString());
-            jo.put("dateTime", tvDateTime.getText().toString());
-            jo.put("endTime", tvEndTime.getText().toString());
+            jo.put("dateTime", TimeFormat.getTimeStamp(tvDateTime.getText().toString()));
+            jo.put("endTime", TimeFormat.getTimeStamp(tvEndTime.getText().toString()));
             jo.put("place", etPlace.getText().toString());
             jo.put("details", etDetails.getText().toString());
             jo.put("userId", JMessageClient.getMyInfo().getUserID());

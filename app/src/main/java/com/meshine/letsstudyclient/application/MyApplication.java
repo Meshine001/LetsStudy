@@ -6,7 +6,6 @@ import android.util.Log;
 import com.baidu.mapapi.SDKInitializer;
 import com.meshine.letsstudyclient.receiver.NotificationClickEventReceiver;
 import com.meshine.letsstudyclient.tools.MyPrefs;
-import com.tencent.upload.UploadManager;
 
 import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;

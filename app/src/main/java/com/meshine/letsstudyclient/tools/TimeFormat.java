@@ -1,10 +1,14 @@
 package com.meshine.letsstudyclient.tools;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.meshine.letsstudyclient.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -139,5 +143,16 @@ public class TimeFormat {
         }
     }
 
-    public static int getTimeStamp(String timeSte)
+    private static final String TIME_PATTERN = "yyyy年MM月dd日 HH:mm";
+
+    public static long getTimeStamp(String timeStr){
+        try {
+            SimpleDateFormat df = new SimpleDateFormat(TIME_PATTERN);
+            Date date = df.parse(timeStr);
+            return date.getTime()/1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
