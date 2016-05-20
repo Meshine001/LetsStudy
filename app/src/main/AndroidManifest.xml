@@ -77,6 +77,9 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+
         <!-- -->
         <activity android:name=".MainActivity_">
             <intent-filter>
