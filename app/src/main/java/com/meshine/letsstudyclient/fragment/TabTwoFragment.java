@@ -1,6 +1,8 @@
 package com.meshine.letsstudyclient.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,8 +20,10 @@ import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
 import com.meshine.letsstudyclient.application.MyApplication;
+import com.meshine.letsstudyclient.db.LetsContract;
 import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.CommonUtil;
+import com.meshine.letsstudyclient.tools.DatabaseHelper;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.JSONUtil;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -60,6 +64,8 @@ public class TabTwoFragment extends BaseFragment {
     @ViewById(R.id.id_contacts_topbar)
     TopBarView topbar;
 
+    DatabaseHelper dbHelper = null;
+    SQLiteDatabase db = null;
 
 
     @Nullable
@@ -71,7 +77,7 @@ public class TabTwoFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (MyApplication.isLogin){
+        if (MyApplication.isLogin) {
             userInfos.clear();
             initData();
         }
@@ -81,7 +87,12 @@ public class TabTwoFragment extends BaseFragment {
     void init() {
         initTopbar();
         initListView();
+        initDB();
         initData();
+    }
+
+    void initDB() {
+        dbHelper = new DatabaseHelper(getContext());
     }
 
     void initTopbar() {
@@ -138,7 +149,7 @@ public class TabTwoFragment extends BaseFragment {
             switch (msg.what) {
                 case MESSAGE_USER_INFO:
                     UserInfo info = (UserInfo) msg.obj;
-                    addContacts2Server(JMessageClient.getMyInfo().getUserName(),info.getUserName());
+                    addContacts2Server(JMessageClient.getMyInfo().getUserName(), info.getUserName());
                     break;
             }
         }
@@ -155,7 +166,7 @@ public class TabTwoFragment extends BaseFragment {
                     msg.what = MESSAGE_USER_INFO;
                     handler.sendMessage(msg);
                 } else {
-                   // CommonUtil.showToast(getContext(), "该用户不存在!");
+                    // CommonUtil.showToast(getContext(), "该用户不存在!");
                     HandleResponseCode.onHandle(getContext(), status, false);
                 }
                 dialog.dismiss();
@@ -183,7 +194,8 @@ public class TabTwoFragment extends BaseFragment {
     MyRestClient httpClient;
 
     void initData() {
-        if (!checkSignIn(false))return;
+        if (!checkSignIn(false)) return;
+        getContactsFromLocal();
         getContacts(JMessageClient.getMyInfo().getUserName());
     }
 
@@ -206,7 +218,7 @@ public class TabTwoFragment extends BaseFragment {
     @UiThread
     void parseContacts(String response) {
         try {
-            JSONArray ja = JSONUtil.getJSONArray(new JSONObject(response),"data");
+            JSONArray ja = JSONUtil.getJSONArray(new JSONObject(response), "data");
 
             userInfos.clear();
 
@@ -228,13 +240,49 @@ public class TabTwoFragment extends BaseFragment {
     }
 
     /**
-     *
      * @param username
      * @param contacts
      */
     @Background
-    void addContacts2Server(String username,String contacts) {
+    void addContacts2Server(String username, String contacts) {
         String response = httpClient.addContacts(username, contacts);
         parseContacts(response);
+    }
+
+    public void getContactsFromLocal() {
+        db = dbHelper.getReadableDatabase();
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+              //  LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS_ID,
+                LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS,
+                LetsContract.ContactsEntry.COLUMN_NAME_NICK,
+                LetsContract.ContactsEntry.COLUMN_NAME_AVATAR,
+               // LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        //        String sortOrder =
+        //        LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS_ID + " DESC";
+
+        String selection = LetsContract.ContactsEntry.COLUMN_NAME_USERNAME + "= ?";
+        String[] selectionArgs = {JMessageClient.getMyInfo().getUserName()};
+        Cursor c = db.query(
+                LetsContract.ContactsEntry.TABLE_NAME,  // The table to query
+                projection,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+
+        while (c.moveToNext()){
+            String contacts = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS));
+            String nick = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_NICK));
+            String avatar = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_AVATAR));
+
+        }
+
     }
 }

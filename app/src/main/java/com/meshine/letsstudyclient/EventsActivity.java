@@ -8,10 +8,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
 import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.tools.AppManager;
+import com.meshine.letsstudyclient.tools.MapUtil;
+import com.meshine.letsstudyclient.widget.ExpandListView;
 import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -27,14 +30,14 @@ public class EventsActivity extends BaseActivity {
     TopBarView topbar;
 
     @ViewById(R.id.id_events_list)
-    PullToRefreshListView ptrEventsList;
-
-    ListView eventsList;
+    ExpandListView eventsList;
 
     List<Event> events = new ArrayList<>();
 
     EventAdapter listAdapter;
 
+    @Extra
+    Integer type;
 
     @AfterViews
     void init(){
@@ -50,16 +53,16 @@ public class EventsActivity extends BaseActivity {
 
     @Override
     public void initTopbar() {
-        super.initTopbar();
+        topbar.setTilte(MapUtil.mapEventType(type));
         topbar.setOnTopBarClickListener(new TopBarView.OnTopBarClickListener() {
             @Override
             public void onTopBarRightClick(View v) {
-                AppManager.getAppManager().finishActivity();
+
             }
 
             @Override
             public void onTopBarLeftClick(View v) {
-
+                AppManager.getAppManager().finishActivity();
             }
         });
     }

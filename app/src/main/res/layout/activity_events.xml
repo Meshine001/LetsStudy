@@ -13,12 +13,26 @@
         app:isShowRight="false"
         app:isShowLeft="true"
         app:isShowWarn="false" />
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/id_events_list"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ptrMode = "pullFromEnd">
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/id_events_banner"
+                android:layout_width="match_parent"
+                android:layout_height="160dp" />
+            <com.meshine.letsstudyclient.widget.ExpandListView
+                android:id="@+id/id_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.meshine.letsstudyclient.widget.ExpandListView>
+        </LinearLayout>
 
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    </ScrollView>
+
+
 
 </LinearLayout>

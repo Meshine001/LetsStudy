@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:id="@+id/id_user_profile_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/colorPrimary"
+        app:leftText="个人资料"
+        app:isShowLeft="true"
+        app:isShowRight="false"
+        app:isShowWarn="false"
+        app:leftSrc="@drawable/ic_back" />
+
+</LinearLayout>

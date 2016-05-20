@@ -11,11 +11,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.meshine.letsstudyclient.EventDetailsActivity_;
+import com.meshine.letsstudyclient.EventsActivity_;
+import com.meshine.letsstudyclient.HeadlineActivity;
+import com.meshine.letsstudyclient.HeadlineActivity_;
 import com.meshine.letsstudyclient.LetsRunActivity_;
 import com.meshine.letsstudyclient.NewEventActivity_;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.RankActivity;
 import com.meshine.letsstudyclient.RankActivity_;
+import com.meshine.letsstudyclient.UserProfileActivity;
+import com.meshine.letsstudyclient.UserProfileActivity_;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
 import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.bean.SquareInfo;
@@ -217,7 +222,13 @@ public class TabOneFragment extends BaseFragment {
             R.id.id_square_menu_lets_run,
             R.id.id_square_menu_lets_study,
             R.id.id_square_menu_lets_report,
-            R.id.id_square_menu_lets_others})
+            R.id.id_square_menu_lets_others,
+            R.id.id_headline_layout,
+            R.id.id_square_top1_iv,
+            R.id.id_square_top2_iv,
+            R.id.id_square_top3_iv,
+            R.id.id_square_top4_iv,
+            R.id.id_square_top5_iv,})
     void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -230,12 +241,13 @@ public class TabOneFragment extends BaseFragment {
                 break;
             //最新活动
             case R.id.id_square_menu_newest:
-
+                goEvents(Event.NEWEST);
                 break;
             //热门活动
             case R.id.id_square_menu_hotest:
+                goEvents(Event.HOTEAST);
                 break;
-            //经典活动
+            //活动宝典
             case R.id.id_square_menu_classic:
                 break;
             //达人榜
@@ -249,22 +261,57 @@ public class TabOneFragment extends BaseFragment {
                 break;
             //约饭
             case R.id.id_square_menu_lets_eat:
+                goEvents(Event.EATE);
                 break;
             //约跑
             case R.id.id_square_menu_lets_run:
-                intent = new Intent(getContext(), LetsRunActivity_.class);
-                startActivity(intent);
+//                intent = new Intent(getContext(), LetsRunActivity_.class);
+//                startActivity(intent);
+                goEvents(Event.RUN);
                 break;
             //约自习
             case R.id.id_square_menu_lets_study:
+                goEvents(Event.STUDY);
                 break;
             //约讲座
             case R.id.id_square_menu_lets_report:
+                goEvents(Event.REPORT);
                 break;
             //其他
             case R.id.id_square_menu_lets_others:
+                goEvents(Event.OTHERS);
+                break;
+            case R.id.id_headline_layout:
+                intent = new Intent(getContext(), HeadlineActivity_.class);
+                startActivity(intent);
+                break;
+            case R.id.id_square_top1_iv:
+                goUserProfile(1);
+                break;
+            case R.id.id_square_top2_iv:
+                goUserProfile(2);
+                break;
+            case R.id.id_square_top3_iv:
+                goUserProfile(3);
+                break;
+            case R.id.id_square_top4_iv:
+                goUserProfile(4);
+                break;
+            case R.id.id_square_top5_iv:
+                goUserProfile(5);
                 break;
         }
+    }
+
+    private void goUserProfile(int level) {
+        Intent intent = new Intent(getContext(), UserProfileActivity_.class);
+        startActivity(intent);
+    }
+
+    private void goEvents(int type) {
+        Intent intent = new Intent(getContext(), EventsActivity_.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
     }
 
 }

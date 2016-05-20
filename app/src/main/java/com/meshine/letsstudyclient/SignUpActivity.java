@@ -65,6 +65,8 @@ public class SignUpActivity extends BaseActivity {
                 public void gotResult(int status, String s) {
                     if (status == 0){
                         Log.i(TAG,"注册新用户成功");
+                        Log.i(TAG,"同步数据到云端");
+                        AsyncToCloud(username,password);
                         login(username,password);
                     }else {
                         Log.i(TAG,"注册新用户失败");
@@ -75,6 +77,11 @@ public class SignUpActivity extends BaseActivity {
             });
         }
     }
+
+    void AsyncToCloud(String username,String password) {
+      
+    }
+
 
 
     void login(final String username, final String password){

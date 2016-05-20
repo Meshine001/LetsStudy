@@ -5,6 +5,14 @@ package com.meshine.letsstudyclient.bean;
  */
 public class Event {
 
+    public static final int NEWEST = 0;
+    public static final int HOTEAST = 1;
+    public static final int EATE = 2;
+    public static final int RUN = 3;
+    public static final int STUDY = 4;
+    public static final int REPORT = 5;
+    public static final int OTHERS = 6;
+
 
 
     private String avatar;

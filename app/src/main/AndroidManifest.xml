@@ -112,6 +112,9 @@
         <activity android:name=".PreViewImageActivity_" />
         <activity android:name=".RankActivity_" />
         <activity android:name=".MyEventActivity_"/>
+        <activity android:name=".HeadlineActivity_"/>
+        <activity android:name=".UserProfileActivity_"/>
+
 
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
