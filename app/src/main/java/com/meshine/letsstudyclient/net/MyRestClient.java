@@ -32,7 +32,17 @@ public interface MyRestClient extends RestClientHeaders{
     @Post("?event.add")
     String addEvent(@Field String data) throws RestClientException;
 
+    @Get("?event.getNewest")
+    String getNewestEvents() throws RestClientException;
+
+    @Get("?event.getHotest")
+    String getHotestEvents() throws RestClientException;
+
+
     @Post("?file.upload")
     @RequiresHeader(HttpHeaders.CONTENT_TYPE)
     String uploadFile(@Body MultiValueMap<String, Object> data) throws RestClientException;
+
+    @Post("?user.signup")
+    String addUser(@Field String username,@Field String password) throws RestClientException;
 }

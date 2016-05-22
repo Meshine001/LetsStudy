@@ -24,6 +24,10 @@ public class Event {
     private String summary;
     private String type;
 
+    public Event() {
+
+    }
+
     public Event(String avatar, String nick, String title, String number, String limit, String date, String summary, String type) {
         this.avatar = avatar;
         this.nick = nick;

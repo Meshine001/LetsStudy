@@ -15,6 +15,7 @@ import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
 import com.bumptech.glide.Glide;
+import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.AppManager;
 import com.meshine.letsstudyclient.tools.BitmapUtil;
@@ -114,6 +115,9 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
     String endTimeStr = "";
     boolean isDateTime = true;
 
+
+    int[] eventTypes = {Event.EATE,Event.RUN,Event.STUDY,Event.REPORT,Event.OTHERS};
+
     @AfterViews
     void init() {
         initTopbar();
@@ -138,7 +142,8 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
     }
 
     void initSpinner() {
-        List<String> dataset = new LinkedList<>(Arrays.asList("约饭", "约跑", "约xx", "其他"));
+
+        List<String> dataset = new LinkedList<>(Arrays.asList("约饭", "约跑", "约自习","约讲座", "其他"));
         nsType.attachDataSource(dataset);
         List<String> dataset1 = new LinkedList<>(Arrays.asList("男女不限", "男", "女", "其他"));
         nsLimit.attachDataSource(dataset1);
@@ -288,14 +293,15 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
     JSONObject generateEventJson() {
         try {
             JSONObject jo = new JSONObject();
-            jo.put("eventType", nsType.getSelectedIndex());
+            jo.put("eventType", eventTypes[nsType.getSelectedIndex()]);
             jo.put("title", etPlace.getText().toString());
             jo.put("count", etCount.getText().toString());
+            jo.put("limit",nsLimit.getSelectedIndex());
             jo.put("dateTime", TimeFormat.getTimeStamp(tvDateTime.getText().toString()));
             jo.put("endTime", TimeFormat.getTimeStamp(tvEndTime.getText().toString()));
             jo.put("place", etPlace.getText().toString());
             jo.put("details", etDetails.getText().toString());
-            jo.put("userId", JMessageClient.getMyInfo().getUserID());
+            jo.put("userName", JMessageClient.getMyInfo().getUserName());
             if (remotePics.size() > 0){
                 for (int i = 1; i <= remotePics.size(); i++) {
                     jo.put("pic" + i, remotePics.get(i - 1));

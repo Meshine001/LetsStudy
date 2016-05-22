@@ -1,12 +1,11 @@
 package com.meshine.letsstudyclient.fragment;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,10 @@ import com.meshine.letsstudyclient.ChatActivity;
 import com.meshine.letsstudyclient.R;
 import com.meshine.letsstudyclient.adapter.ContactsAdapter;
 import com.meshine.letsstudyclient.application.MyApplication;
-import com.meshine.letsstudyclient.db.LetsContract;
+import com.meshine.letsstudyclient.bean.Contacts;
+import com.meshine.letsstudyclient.db.DataHelper;
 import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.CommonUtil;
-import com.meshine.letsstudyclient.tools.DatabaseHelper;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
 import com.meshine.letsstudyclient.tools.JSONUtil;
 import com.meshine.letsstudyclient.widget.TopBarView;
@@ -58,15 +57,14 @@ public class TabTwoFragment extends BaseFragment {
     private static final int MESSAGE_USER_INFO = 0X0001;
     @ViewById(R.id.id_contacts_list)
     ListView contactsList;
-    List<UserInfo> userInfos;
+    List<UserInfo> contactsInfos = new ArrayList<>();
+    List<String> contactsNames = new ArrayList<>();
     ContactsAdapter contactsAdapter;
 
     @ViewById(R.id.id_contacts_topbar)
     TopBarView topbar;
 
-    DatabaseHelper dbHelper = null;
-    SQLiteDatabase db = null;
-
+    DataHelper dataHelper = null;
 
     @Nullable
     @Override
@@ -78,8 +76,7 @@ public class TabTwoFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         if (MyApplication.isLogin) {
-            userInfos.clear();
-            initData();
+           // initData();
         }
     }
 
@@ -92,7 +89,7 @@ public class TabTwoFragment extends BaseFragment {
     }
 
     void initDB() {
-        dbHelper = new DatabaseHelper(getContext());
+        dataHelper = new DataHelper(getContext());
     }
 
     void initTopbar() {
@@ -176,15 +173,14 @@ public class TabTwoFragment extends BaseFragment {
 
 
     void initListView() {
-        userInfos = new ArrayList<>();
-        contactsAdapter = new ContactsAdapter(userInfos, getContext());
+        contactsAdapter = new ContactsAdapter(contactsInfos, getContext());
         contactsList.setAdapter(contactsAdapter);
         contactsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), ChatActivity.class);
-                intent.putExtra("targetUserName", userInfos.get(position).getUserName());
-                intent.putExtra("targetNick", userInfos.get(position).getNickname());
+                intent.putExtra("targetUserName", contactsInfos.get(position).getUserName());
+                intent.putExtra("targetNick", contactsInfos.get(position).getNickname());
                 startActivity(intent);
             }
         });
@@ -217,26 +213,44 @@ public class TabTwoFragment extends BaseFragment {
      */
     @UiThread
     void parseContacts(String response) {
+        Log.i(TAG,response);
         try {
             JSONArray ja = JSONUtil.getJSONArray(new JSONObject(response), "data");
-
-            userInfos.clear();
-
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject jo = ja.getJSONObject(i);
-                JMessageClient.getUserInfo(jo.getString("contacts"), new GetUserInfoCallback() {
-                    @Override
-                    public void gotResult(int status, String s, UserInfo userInfo) {
-                        if (status == 0) {
-                            userInfos.add(userInfo);
-                            contactsAdapter.notifyDataSetChanged();
-                        }
+                String contactsName = JSONUtil.getString(jo,"contacts");
+                Log.i(TAG,contactsName);
+                boolean isContains = false;
+                for (String s:contactsNames){
+                    if (s.equals(contactsName)){
+                        isContains = true;
                     }
-                });
+
+                }
+                if (!isContains){
+                    getContactsInfoFromJMessage(contactsName);
+                    saveContacts2Local(contactsName);
+                }
             }
         } catch (JSONException e) {
             //e.printStackTrace();
         }
+    }
+
+    private void saveContacts2Local(String contactsName) {
+        dataHelper.addContacts(new Contacts(JMessageClient.getMyInfo().getUserName(),contactsName));
+    }
+
+    void getContactsInfoFromJMessage(String contactsName){
+        JMessageClient.getUserInfo(contactsName, new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int status, String s, UserInfo userInfo) {
+                if (status == 0) {
+                    contactsInfos.add(userInfo);
+                    contactsAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     /**
@@ -250,38 +264,12 @@ public class TabTwoFragment extends BaseFragment {
     }
 
     public void getContactsFromLocal() {
-        db = dbHelper.getReadableDatabase();
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-              //  LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS_ID,
-                LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS,
-                LetsContract.ContactsEntry.COLUMN_NAME_NICK,
-                LetsContract.ContactsEntry.COLUMN_NAME_AVATAR,
-               // LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS
-        };
-
-        // How you want the results sorted in the resulting Cursor
-        //        String sortOrder =
-        //        LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS_ID + " DESC";
-
-        String selection = LetsContract.ContactsEntry.COLUMN_NAME_USERNAME + "= ?";
-        String[] selectionArgs = {JMessageClient.getMyInfo().getUserName()};
-        Cursor c = db.query(
-                LetsContract.ContactsEntry.TABLE_NAME,  // The table to query
-                projection,                               // The columns to return
-                selection,                                // The columns for the WHERE clause
-                selectionArgs,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        while (c.moveToNext()){
-            String contacts = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_CONTACTS));
-            String nick = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_NICK));
-            String avatar = c.getString(c.getColumnIndex(LetsContract.ContactsEntry.COLUMN_NAME_AVATAR));
-
+        contactsInfos.clear();
+        contactsNames.clear();
+        List<Contacts> cs = dataHelper.getContactsList(JMessageClient.getMyInfo().getUserName());
+        for (Contacts c:cs){
+            contactsNames.add(c.getContacts());
+            getContactsInfoFromJMessage(c.getContacts());
         }
 
     }

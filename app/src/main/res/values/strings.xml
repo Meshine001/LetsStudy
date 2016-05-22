@@ -206,6 +206,7 @@
 
     <string name="info_str">个人信息</string>
     <string name="account_str">账号</string>
+    <string name="nick_str">昵称</string>
     <string name="sex_str">性别</string>
     <string name="location_str">地区</string>
     <string name="quote_str">个性签名</string>

@@ -10,6 +10,7 @@ import com.meshine.letsstudyclient.application.MyApplication;
 import com.meshine.letsstudyclient.application.MyApplication_;
 import com.meshine.letsstudyclient.tools.AppManager;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 
@@ -31,6 +32,17 @@ public class BaseActivity extends Activity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(getApplicationContext());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(getApplicationContext());
+    }
 
     @Override
     protected void onDestroy() {

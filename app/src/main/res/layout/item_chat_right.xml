@@ -10,17 +10,23 @@
         android:layout_marginTop="5dp"
         android:gravity="right"
         android:orientation="horizontal">
-        <com.rockerhieu.emojicon.EmojiconTextView
-            android:id="@+id/id_chat_right_msg_content"
-            style="@style/msg_text_style"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:background="@drawable/ic_chat_right_bg"
-            android:paddingLeft="10dp"
-            android:paddingRight="15dp"
-            android:text="Hello,World!!"
-            />
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ic_chat_right_bg">
+            <com.rockerhieu.emojicon.EmojiconTextView
+                android:id="@+id/id_chat_right_msg_content"
+                style="@style/msg_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello,World!!"
+                />
+        </FrameLayout>
+
         <com.meshine.letsstudyclient.widget.CircleImageView
             android:id="@+id/id_item_chat_right_avatar"
             android:layout_width="@dimen/chat_avatar_size"
