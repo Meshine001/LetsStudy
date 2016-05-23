@@ -35,13 +35,11 @@ public class BaseActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        JPushInterface.onPause(getApplicationContext());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        JPushInterface.onResume(getApplicationContext());
     }
 
     @Override

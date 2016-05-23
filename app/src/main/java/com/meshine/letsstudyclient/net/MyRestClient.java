@@ -38,6 +38,9 @@ public interface MyRestClient extends RestClientHeaders{
     @Get("?event.getHotest")
     String getHotestEvents() throws RestClientException;
 
+    @Get("?event.getRecommend")
+    String getRecommend() throws RestClientException;
+
 
     @Post("?file.upload")
     @RequiresHeader(HttpHeaders.CONTENT_TYPE)

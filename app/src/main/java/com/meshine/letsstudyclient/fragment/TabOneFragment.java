@@ -2,6 +2,7 @@ package com.meshine.letsstudyclient.fragment;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.baidu.trace.T;
 import com.bumptech.glide.Glide;
 import com.meshine.letsstudyclient.EventDetailsActivity_;
 import com.meshine.letsstudyclient.EventsActivity_;
@@ -24,13 +26,18 @@ import com.meshine.letsstudyclient.UserProfileActivity_;
 import com.meshine.letsstudyclient.adapter.EventAdapter;
 import com.meshine.letsstudyclient.bean.Event;
 import com.meshine.letsstudyclient.bean.SquareInfo;
+import com.meshine.letsstudyclient.net.MyRestClient;
+import com.meshine.letsstudyclient.tools.EventUtil;
 import com.meshine.letsstudyclient.widget.AdBannerView;
 import com.meshine.letsstudyclient.widget.ExpandListView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +48,7 @@ import java.util.List;
 @EFragment(R.layout.fragment_tab_one)
 public class TabOneFragment extends BaseFragment {
 
+    private static final String TAG = "Main Tab";
     /**
      * 广告页
      */
@@ -88,6 +96,7 @@ public class TabOneFragment extends BaseFragment {
     ExpandListView recommendLv;
 
     List<Event> recommendEvents = new ArrayList<>();
+
     EventAdapter eventAdapter;
 
     @AfterViews
@@ -175,28 +184,31 @@ public class TabOneFragment extends BaseFragment {
         super.onDestroyView();
     }
 
+    @RestService
+    MyRestClient httpClient;
+
     void initData() {
-        recommendEvents.add(new Event("http://ww2.sinaimg.cn/crop.0.0.1152.1152.1024/005Y9c72jw8epp0o2ogxjj30w00w0abq.jpg",
-                "我是学霸",
-                "周日图书馆约自习",
-                "2",
-                "男女不限",
-                "2016-05-12",
-                "来几个漂亮的妹子，一起搞学术。", "HUO"));
-        recommendEvents.add(new Event("http://cdn.duitang.com/uploads/item/201407/01/20140701090724_FFTZS.jpeg",
-                "啊萌",
-                "星期二一起跑步",
-                "2",
-                "女生",
-                "2016-05-14",
-                "不喜欢和不帅的男生一起跑步，美女们约跑不。", "HUO"));
-        recommendEvents.add(new Event("http://cdnq.duitang.com/uploads/item/201408/23/20140823154838_w4YCe.png",
-                "黄小鸭",
-                "谁一起去吃个饭啊",
-                "2",
-                "男生",
-                "2016-05-14",
-                "身高170+，长的帅，幽默，会哄女孩子。别的不说，就是要帅帅帅！！！不帅的不要！！！", "HUO"));
+        getRecommentData();
+    }
+
+    @Background
+    void getRecommentData() {
+        String respone = httpClient.getRecommend();
+
+        List<Event> rs = EventUtil.parseEventsData(respone);
+        if (rs != null){
+            updateRecomment(rs);
+        }
+
+    }
+
+    @UiThread
+    void updateRecomment(List<Event> recommends) {
+        recommendEvents.clear();
+        recommendEvents.addAll(recommends);
+        for (Event e:recommendEvents){
+            Log.i(TAG,e.toString());
+        }
         eventAdapter.notifyDataSetChanged();
     }
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.meshine.letsstudyclient.widget.TopBarView
+        android:id="@+id/id_group_chat_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:layout_alignParentTop="true"
+        app:centerText="@string/chat"
+        app:isBack="true"
+        app:isShowLeft="true"
+        app:isShowRight="false"
+        app:isShowWarn="false"
+        app:leftSrc="@drawable/ic_back" />
+
+    <include layout="@layout/chat_panel_layout"
+        android:id="@+id/id_group_chat_bottom"/>
+    <ListView
+        android:layout_below="@id/id_group_chat_topbar"
+        android:id="@+id/id_group_chat_message_list"
+        android:layout_above="@id/id_group_chat_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</RelativeLayout>

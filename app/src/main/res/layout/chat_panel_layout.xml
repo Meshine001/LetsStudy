@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom">
+
+        <ImageView
+            android:id="@+id/id_chat_panel_input_switch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_record" />
+
+        <com.rockerhieu.emojicon.EmojiconEditText
+            android:layout_weight="20"
+            android:id="@+id/id_chat_panel_input_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:inputType="textMultiLine"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/id_chat_panel_input_emoj"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_face" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/id_chat_panel_input_extend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_chat_plus" />
+
+    </LinearLayout>
+    <View
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+    <FrameLayout
+        android:id="@+id/id_chat_panel_emoj_icons"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chat_emoj_icons_height"
+        android:layout_marginTop="5dp"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -89,7 +89,7 @@
         android:largeHeap="true">
 
         <!-- -->
-        <activity android:name=".MainActivity_">
+        <activity android:name=".GroupChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
 
@@ -115,6 +115,7 @@
         <activity android:name=".MyEventActivity_"/>
         <activity android:name=".HeadlineActivity_"/>
         <activity android:name=".UserProfileActivity_"/>
+        <activity android:name=".MainActivity_"/>
 
 
         <activity

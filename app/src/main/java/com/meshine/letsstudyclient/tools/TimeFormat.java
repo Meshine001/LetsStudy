@@ -155,4 +155,10 @@ public class TimeFormat {
         }
         return -1;
     }
+
+    public static String unixTime2Local(Long time,String pattern){
+        Date date = new Date(time*1000);
+        SimpleDateFormat df = new SimpleDateFormat(pattern);
+        return df.format(date);
+    }
 }

@@ -117,6 +117,7 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
 
     int[] eventTypes = {Event.EATE,Event.RUN,Event.STUDY,Event.REPORT,Event.OTHERS};
+    int[] limits = {Event.LIMIT_ALL,Event.LIMIT_MALE,Event.LIMIT_FEMALE,Event.LIMIT_UNKNOWN};
 
     @AfterViews
     void init() {
@@ -296,7 +297,7 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             jo.put("eventType", eventTypes[nsType.getSelectedIndex()]);
             jo.put("title", etPlace.getText().toString());
             jo.put("count", etCount.getText().toString());
-            jo.put("limit",nsLimit.getSelectedIndex());
+            jo.put("limit",limits[nsLimit.getSelectedIndex()]);
             jo.put("dateTime", TimeFormat.getTimeStamp(tvDateTime.getText().toString()));
             jo.put("endTime", TimeFormat.getTimeStamp(tvEndTime.getText().toString()));
             jo.put("place", etPlace.getText().toString());

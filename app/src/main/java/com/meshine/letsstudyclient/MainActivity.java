@@ -27,6 +27,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import cn.jpush.android.api.JPushInterface;
+
 @EActivity(R.layout.activity_main)
 public class MainActivity extends FragmentActivity {
 
@@ -206,5 +208,17 @@ public class MainActivity extends FragmentActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(MainActivity.this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(MainActivity.this);
     }
 }

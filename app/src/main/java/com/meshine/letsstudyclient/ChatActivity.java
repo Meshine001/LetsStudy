@@ -40,6 +40,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.CustomContent;
 import cn.jpush.im.android.api.content.EventNotificationContent;
@@ -103,6 +104,18 @@ public class ChatActivity extends FragmentActivity implements View.OnClickListen
         initExtras();
         initViews();
         initComponent();
+    }
+
+    @Override
+    protected void onResume() {
+        JPushInterface.onResume(ChatActivity.this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        JPushInterface.onPause(ChatActivity.this);
+        super.onPause();
     }
 
     @Override

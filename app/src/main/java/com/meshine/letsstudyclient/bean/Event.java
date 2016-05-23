@@ -13,54 +13,65 @@ public class Event {
     public static final int REPORT = 5;
     public static final int OTHERS = 6;
 
+    public static final int LIMIT_ALL = 0;
+    public static final int LIMIT_MALE = 1;
+    public static final int LIMIT_FEMALE = 2;
+    public static final int LIMIT_UNKNOWN = 3;
 
 
-    private String avatar;
-    private String nick;
+    private Long id;
+    private int eventType;
     private String title;
-    private String number;
-    private String limit;
-    private String date;
-    private String summary;
-    private String type;
+    private int count;
+    private int limit;
+    private Long dateTime;
+    private Long endTime;
+    private Long createTime;
+    private String place;
+    private String details;
+    private String userName;
+    private String pic1;
+    private String pic2;
+    private String pic3;
+    private String pic4;
+
 
     public Event() {
 
     }
 
-    public Event(String avatar, String nick, String title, String number, String limit, String date, String summary, String type) {
-        this.avatar = avatar;
-        this.nick = nick;
+    public Event(Long id,int eventType, String title, int count, int limit, Long dateTime, Long endTime,  String place, String details, Long createTime,String userName, String pic1, String pic2, String pic3, String pic4) {
+        this.id = id;
+        this.eventType = eventType;
         this.title = title;
-        this.number = number;
+        this.count = count;
         this.limit = limit;
-        this.date = date;
-        this.summary = summary;
-        this.type = type;
+        this.dateTime = dateTime;
+        this.endTime = endTime;
+        this.createTime = createTime;
+        this.place = place;
+        this.details = details;
+        this.userName = userName;
+        this.pic1 = pic1;
+        this.pic2 = pic2;
+        this.pic3 = pic3;
+        this.pic4 = pic4;
     }
 
-    public String getType() {
-        return type;
+    public Long getId() {
+        return id;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public int getEventType() {
+        return eventType;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
     }
 
     public String getTitle() {
@@ -71,48 +82,120 @@ public class Event {
         this.title = title;
     }
 
-    public String getNumber() {
-        return number;
+    public int getCount() {
+        return count;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getLimit() {
+    public int getLimit() {
         return limit;
     }
 
-    public void setLimit(String limit) {
+    public void setLimit(int limit) {
         this.limit = limit;
     }
 
-    public String getDate() {
-        return date;
+    public Long getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateTime(Long dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public String getSummary() {
-        return summary;
+    public Long getEndTime() {
+        return endTime;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPic1() {
+        return pic1;
+    }
+
+    public void setPic1(String pic1) {
+        this.pic1 = pic1;
+    }
+
+    public String getPic2() {
+        return pic2;
+    }
+
+    public void setPic2(String pic2) {
+        this.pic2 = pic2;
+    }
+
+    public String getPic3() {
+        return pic3;
+    }
+
+    public void setPic3(String pic3) {
+        this.pic3 = pic3;
+    }
+
+    public String getPic4() {
+        return pic4;
+    }
+
+    public void setPic4(String pic4) {
+        this.pic4 = pic4;
     }
 
     @Override
     public String toString() {
         return "Event{" +
-                "avatar='" + avatar + '\'' +
-                ", nick='" + nick + '\'' +
+                "id=" + id +
+                ", eventType=" + eventType +
                 ", title='" + title + '\'' +
-                ", number='" + number + '\'' +
-                ", limit='" + limit + '\'' +
-                ", date='" + date + '\'' +
-                ", summary='" + summary + '\'' +
+                ", count=" + count +
+                ", limit=" + limit +
+                ", dateTime=" + dateTime +
+                ", endTime=" + endTime +
+                ", createTime=" + createTime +
+                ", place='" + place + '\'' +
+                ", details='" + details + '\'' +
+                ", userName='" + userName + '\'' +
+                ", pic1='" + pic1 + '\'' +
+                ", pic2='" + pic2 + '\'' +
+                ", pic3='" + pic3 + '\'' +
+                ", pic4='" + pic4 + '\'' +
                 '}';
     }
 }

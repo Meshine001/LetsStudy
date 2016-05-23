@@ -30,4 +30,24 @@ public class MapUtil {
         }
         return null;
     }
+
+    /**
+     * 获取Limit对应文本
+     * @param type
+     * @return
+     */
+    public static String mapLimitType(int type){
+        switch (type){
+            case Event.LIMIT_ALL:
+                return "男女不限";
+            case Event.LIMIT_MALE:
+                return "男生";
+            case Event.LIMIT_FEMALE:
+                return "女生";
+            case Event.LIMIT_UNKNOWN:
+                return "其他";
+
+        }
+        return null;
+    }
 }
