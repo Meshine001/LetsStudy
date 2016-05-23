@@ -10,24 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.meshine.letsstudyclient.application.MyApplication_;
-import com.meshine.letsstudyclient.net.MyRestClient;
 import com.meshine.letsstudyclient.tools.AppManager;
-import com.meshine.letsstudyclient.tools.CommonUtil;
 import com.meshine.letsstudyclient.tools.HandleResponseCode;
-import com.meshine.letsstudyclient.tools.JSONUtil;
 import com.meshine.letsstudyclient.tools.MyPrefs_;
 import com.meshine.letsstudyclient.widget.TopBarView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.androidannotations.rest.spring.annotations.RestService;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -39,7 +31,7 @@ import cn.jpush.im.api.BasicCallback;
 @EActivity(R.layout.activity_sign_up)
 public class SignUpActivity extends BaseActivity {
 
-    private static final String TAG = SignUpActivity.class.getName();
+    private static final String TAG = "SignUpActivity";
 
     //TopBar
     @ViewById(R.id.id_sign_up_topbar)
@@ -86,29 +78,12 @@ public class SignUpActivity extends BaseActivity {
         }
     }
 
-    @RestService
-    MyRestClient httpClient;
-
-    @Background
     void AsyncToCloud(String username,String password) {
-        String response  = httpClient.addUser(username,password);
-        try {
-            JSONObject jo = new JSONObject(response);
-            if (0== JSONUtil.getInt(jo,"code")){
 
-            }else {
-                CommonUtil.showToast(getApplicationContext(),JSONUtil.getString(jo,"message"));
-            }
-            login(username,password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
 
 
-
-    @UiThread
     void login(final String username, final String password){
         Log.i(TAG,"开始登录");
         setProgressDialogTile("提示").setMessage("正在登入...");
